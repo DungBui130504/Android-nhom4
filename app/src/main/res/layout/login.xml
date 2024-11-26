@@ -1,72 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="32dp"
-    android:gravity="center">
+    android:background="@android:color/holo_blue_dark">
 
-    <!-- Logo -->
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_marginBottom="40dp"
-        android:contentDescription="Logo" />
-
-    <!-- Username input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_input_layout"
+    <!-- Card View for login box -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeWidth="2dp"
-        app:boxBackgroundMode="outline"
-        app:hintEnabled="true"
-        app:hintAnimationEnabled="true"
-        android:layout_marginBottom="16dp">
+        android:layout_margin="20dp"
+        android:background="@drawable/gradient_blue"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
 
-        <com.google.android.material.textfield.TextInputEditText
+        android:padding="20dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Profile Icon -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_profile_placeholder"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Username Field -->
+        <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
-            android:textColorHint="#8e8e8e"
-            android:textColor="#000000"
-            android:padding="12dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="Username..."
+            android:padding="12dp"
+            android:background="@drawable/hue_white"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="#A8A5A5"
+            />
 
-    <!-- Password input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeWidth="2dp"
-        app:boxBackgroundMode="outline"
-        app:hintEnabled="true"
-        app:hintAnimationEnabled="true"
-        android:layout_marginBottom="32dp">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <!-- Password Field -->
+        <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColorHint="#8e8e8e"
-            android:textColor="#000000"
+            android:hint="Password..."
             android:padding="12dp"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:background="@drawable/hue_white"
+            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
+            android:textColorHint="#A8A5A5"
+            />
 
-    <!-- Login button -->
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#6200EE"
-        android:layout_marginTop="16dp" />
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_orange"
+            android:text="Sign In"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"/>
 
-</LinearLayout>
+        <!-- Forgot Password & Create Account Links -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot password"
+                android:textColor="#E04E7F"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/createAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create an account"
+                android:textColor="#72DB2C"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
