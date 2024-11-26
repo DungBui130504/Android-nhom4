@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.QuestionAndAnswerManagement"
+    android:orientation="vertical"
+    android:background="@drawable/hue_white_main_background"
+    >
+
+    <fragment
+        android:name="fragment.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="126dp"
+        android:layout_gravity="bottom" />
+
+    <TextView
+        android:layout_width="86dp"
+        android:layout_height="64dp"
+        android:src="@drawable/faq_2068745"/>
+
+</LinearLayout>
