@@ -64,13 +64,14 @@
 
         <!-- Login Button -->
         <Button
-            android:id="@+id/btn"
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_orange"
             android:text="Sign In"
+            android:background="@drawable/button_selector"
             android:textColor="@android:color/white"
             android:layout_marginBottom="12dp"/>
+
 
         <!-- Forgot Password & Create Account Links -->
         <LinearLayout
