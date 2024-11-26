@@ -38,5 +38,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.etebarian:meow-bottom-navigation:1.2.0")
 }
