@@ -31,6 +31,7 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.3")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
