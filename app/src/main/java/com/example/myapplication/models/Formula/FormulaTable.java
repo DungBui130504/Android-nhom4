@@ -8,12 +8,18 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.myapplication.Constants.FormulaConstants;
+import com.example.myapplication.Constants.SubjectConstants;
+import com.example.myapplication.Constants.UserConstants;
 import com.example.myapplication.database.Database;
 import com.example.myapplication.models.Contact.ContactObject;
 
 import java.time.LocalDate;
 
 public class FormulaTable {
+
+
+
     private SQLiteDatabase db;
     Context context;
 
@@ -27,24 +33,24 @@ public class FormulaTable {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public boolean addNewFormula(Long formulaID, String formulaName, String formula, int userID, Long subjectID) {
+    public boolean addNewFormula(Integer formulaID, String formulaName, String formula, int userID, Long subjectID, String updatedDate) {
         if(isFormulaExistedByName(formulaName)){
-            Toast.makeText(this.context,"Username đã tồn tại! " , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Tên công thức đã tồn tại! " , Toast.LENGTH_SHORT).show();
             return false ;
         }
-        String addFormulaStatement = "insert into Formula (formulaID, formulaName, formula, userID ,subjectID, ) values (?,?,?,?,?)";
+        String addFormulaStatement = "insert into Formula (formulaID, formulaName, formula, userID ,subjectID, updatedDate) values (?,?,?,?,?)";
         try{
             Cursor add = this.db.rawQuery(addFormulaStatement ,new String[]{formulaID.toString() ,formulaName, formula, Integer.toString(userID), subjectID.toString(), LocalDate.now().toString()});
             add.close();
             return true;
         } catch (Exception e) {
-            Toast.makeText(this.context,"Có lỗi khi thêm mới user : "+ e , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Có lỗi khi thêm mới công thức : "+ e , Toast.LENGTH_SHORT).show();
             return false;
         }
     }
     public boolean deleteFormulaByID(int formulaID){
         try {
-            String queryFormula = "DELETE FROM User WHERE userID=" + formulaID;
+            String queryFormula = String.format("DELETE FROM Formula WHERE %s = %s",FormulaConstants.FORMULA_COLUMN_ID,formulaID);
             Cursor cur = this.db.rawQuery(queryFormula , null);
             cur.close();
             return true;
@@ -55,7 +61,7 @@ public class FormulaTable {
     }
 
     public boolean isFormulaExistedByName(String formulaName){
-        String queryFormula = "select * from Formula where formulaName = ?";
+        String queryFormula = String.format("select * from Formula where %s = ?", FormulaConstants.FORMULA_COLUMN_NAME);
         Cursor formulaFound = this.db.rawQuery(queryFormula , new String[]{formulaName});
         boolean exists = formulaFound.moveToFirst();
         formulaFound.close();
@@ -64,27 +70,27 @@ public class FormulaTable {
     public FormulaObject getFormulaById(int formulaID) {
         FormulaObject formula = null;
 
-        String queryFormula = "SELECT * FROM Formula WHERE FormulaID = ?";
+        String queryFormula = String.format("SELECT * FROM Formula WHERE %s = ?", FormulaConstants.FORMULA_COLUMN_ID);
         Cursor cursor = null;
 
         try {
             cursor = this.db.rawQuery(queryFormula, new String[]{String.valueOf(formulaID)});
 
             if (cursor != null && cursor.moveToFirst()) {
-                int formulaIdIndex = cursor.getColumnIndex("formulaID");
-                int formulaNameIndex = cursor.getColumnIndex("formulaName");
-                int formulaIndex = cursor.getColumnIndex("formula");
-                int userIdIndex = cursor.getColumnIndex("userID");
-                int subjectIdIndex = cursor.getColumnIndex("subjectID");
-                int createdDateIndex = cursor.getColumnIndex("formulaCreatedDate");
+                int formulaIdIndex = cursor.getColumnIndex(FormulaConstants.FORMULA_COLUMN_ID);
+                int formulaNameIndex = cursor.getColumnIndex(FormulaConstants.FORMULA_COLUMN_NAME);
+                int formulaIndex = cursor.getColumnIndex(FormulaConstants.FORMULA_COLUMN_FORMULA);
+                int userIdIndex = cursor.getColumnIndex(UserConstants.USER_COLUMN_ID);
+                int subjectIdIndex = cursor.getColumnIndex(SubjectConstants.SUBJECT_COLUMN_ID);
+                int createdDateIndex = cursor.getColumnIndex(FormulaConstants.FORMULA_COLUMN_UPDATED_DATE);
 
                 if (formulaIdIndex >= 0 && formulaNameIndex >= 0 && formulaIndex >= 0 && createdDateIndex >= 0) {
-                    Long id = cursor.getLong(formulaIdIndex);
+                    Integer id = cursor.getInt(formulaIdIndex);
                     String name = cursor.getString(formulaNameIndex);
                     String formulaContent = cursor.getString(formulaIndex);
                     String createdDate = cursor.getString(createdDateIndex);
-                    Long subjectID = cursor.getLong(subjectIdIndex);
-                    int userID = cursor.getInt(userIdIndex);
+                    Integer subjectID = cursor.getInt(subjectIdIndex);
+                    Integer userID = cursor.getInt(userIdIndex);
 
                     formula = new FormulaObject(id, name, formulaContent, userID, subjectID, createdDate);
                 }

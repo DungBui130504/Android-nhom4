@@ -6,24 +6,24 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
 public class FormulaObject {
-    private Long formulaID;
+    private Integer formulaID;
     private String formulaName;
     private String formula;
     private int userID;
-    private Long subjectID;
+    private Integer subjectID;
     private String updatedDate;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public FormulaObject() {
-        formulaID = (long)-1;
+        formulaID = -1;
         userID = -1;
-        subjectID = (long)-1;
+        subjectID = -1;
         formula = "none";
         formulaName = "none";
         updatedDate = LocalDate.now().toString();
     }
 
-    public FormulaObject(Long formulaID, String formulaName, String formula, int userID, Long subjectID, String updatedDate) {
+    public FormulaObject(Integer formulaID, String formulaName, String formula, int userID, Integer subjectID, String updatedDate) {
         this.formulaID = formulaID;
         this.formulaName = formulaName;
         this.formula = formula;
@@ -32,11 +32,11 @@ public class FormulaObject {
         this.updatedDate = updatedDate;
     }
 
-    public Long getFormulaID() {
+    public Integer getFormulaID() {
         return formulaID;
     }
 
-    public void setFormulaID(Long formulaID) {
+    public void setFormulaID(Integer formulaID) {
         this.formulaID = formulaID;
     }
 
@@ -64,11 +64,11 @@ public class FormulaObject {
         this.userID = userID;
     }
 
-    public Long getSubjectID() {
+    public Integer getSubjectID() {
         return subjectID;
     }
 
-    public void setSubjectID(Long subjectID) {
+    public void setSubjectID(Integer subjectID) {
         this.subjectID = subjectID;
     }
 
