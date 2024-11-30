@@ -64,7 +64,7 @@
 
         <!-- Login Button -->
         <Button
-            android:id="@+id/btn"
+            android:id="@+id/btnAddFormula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/gradient_orange"

@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
                 "formulaID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "formula TEXT NOT NULL, " +
                 "formulaName TEXT NOT NULL, " +
-                "formulaUpdateTime TEXT, " +
+                "formulaUpdatedDate TEXT, " +
                 "subjectID INTEGER NOT NULL, " +
                 "userID INTEGER NOT NULL, " +
                 "FOREIGN KEY (subjectID) REFERENCES Subject(subjectID), " +

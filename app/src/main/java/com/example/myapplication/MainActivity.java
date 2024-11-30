@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.activity.LoginActivity;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
