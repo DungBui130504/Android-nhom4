@@ -18,7 +18,6 @@ public class UserTable {
             Toast.makeText(context,"Có lỗi khi kết nốt db tại model User : "+ e , Toast.LENGTH_SHORT).show();
         }
     }
-
     public boolean addNewUser(String userName, String password,String gmail ,String fullName, String phoneNumber){
         if(!gmail.contains("@gmail.com")){
             Toast.makeText(this.context,"Gmail không hợp lệ! " , Toast.LENGTH_SHORT).show();
