@@ -57,7 +57,7 @@ public class Database extends SQLiteOpenHelper {
                 "FOREIGN KEY (userID) REFERENCES User(userID));");
 
         db.execSQL("CREATE TABLE QuestionAnswer (" +
-                "questionID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "questionAnswerID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "questionContent TEXT NOT NULL, " +
                 "answerContent TEXT, " +
                 "answerUpdateDate TEXT, " +
