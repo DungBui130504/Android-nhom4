@@ -80,6 +80,7 @@ public class UserTable {
                 int fullNameIndex = cur.getColumnIndex("fullName");
                 int phoneNumberIndex = cur.getColumnIndex("phoneNumber");
 
+
                 // Kiểm tra nếu chỉ số cột hợp lệ (>= 0)
                 if (userNameIndex >= 0 && passwordIndex >= 0 && gmailIndex >= 0 && fullNameIndex >= 0 && phoneNumberIndex >= 0) {
                     String userName = cur.getString(userNameIndex);
