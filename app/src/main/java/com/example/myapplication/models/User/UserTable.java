@@ -74,6 +74,7 @@ public class UserTable {
 
             if (cur != null && cur.moveToFirst()) {
                 // Kiểm tra xem tên cột có hợp lệ không trước khi lấy giá trị
+                int userIDIndex = cur.getColumnIndex("userID");
                 int userNameIndex = cur.getColumnIndex("userName");
                 int passwordIndex = cur.getColumnIndex("password");
                 int gmailIndex = cur.getColumnIndex("gmail");
@@ -83,13 +84,14 @@ public class UserTable {
 
                 // Kiểm tra nếu chỉ số cột hợp lệ (>= 0)
                 if (userNameIndex >= 0 && passwordIndex >= 0 && gmailIndex >= 0 && fullNameIndex >= 0 && phoneNumberIndex >= 0) {
+                    int UserID = cur.getInt(userIDIndex);
                     String userName = cur.getString(userNameIndex);
                     String passWord = cur.getString(passwordIndex);
                     String gmail = cur.getString(gmailIndex);
                     String fullName = cur.getString(fullNameIndex);
                     String phoneNumber = cur.getString(phoneNumberIndex);
 
-                    user = new UserObject(userName, passWord, gmail, fullName, phoneNumber);
+                    user = new UserObject(UserID,userName, passWord, gmail, fullName, phoneNumber);
                 } else {
                     Toast.makeText(this.context, "Cột không tồn tại trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
                 }

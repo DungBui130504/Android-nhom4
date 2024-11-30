@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.example.myapplication.database.Database;
 
+import java.util.ArrayList;
+
 public class ContactTable {
 
     public SQLiteDatabase db;
@@ -29,8 +31,8 @@ public class ContactTable {
         }
 
         // Kiểm tra xem contact đã tồn tại chưa
-        if (checkContactExisted(gmail)) {
-            Toast.makeText(this.context, "Gmail này đã tồn tại trong hệ thống!", Toast.LENGTH_SHORT).show();
+        if (checkContactExisted(gmail , userID)) {
+            Toast.makeText(this.context, "Gmail này đã tồn tại trong danh sach cua ban", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -51,10 +53,10 @@ public class ContactTable {
         }
     }
 
-    // Kiểm tra xem contact đã tồn tại trong hệ thống chưa (dựa trên gmail)
-    public boolean checkContactExisted(String gmail) {
-        String queryContact = "SELECT * FROM Contact WHERE gmail = ?";
-        Cursor contactFound = this.db.rawQuery(queryContact, new String[]{gmail});
+    // Kiểm tra xem contact đã tồn tại trong danh sach cua user chua
+    public boolean checkContactExisted(String gmail , int userID) {
+        String queryContact = "SELECT * FROM Contact WHERE gmail = ? and userID = ?";
+        Cursor contactFound = this.db.rawQuery(queryContact, new String[]{gmail, String.valueOf(userID)});
         boolean exists = contactFound.moveToFirst();
         contactFound.close();
         return exists;
@@ -73,7 +75,7 @@ public class ContactTable {
     public boolean deleteContact(int contactID) {
         try {
             String queryContact = "DELETE FROM Contact WHERE ContactID = ?";
-            this.db.execSQL(queryContact, new Object[]{contactID});
+            this.db.execSQL(queryContact, new String[]{String.valueOf(contactID)});
             return true;
         } catch (Exception e) {
             Toast.makeText(this.context, "Có lỗi khi xóa contact: " + e, Toast.LENGTH_SHORT).show();
@@ -117,6 +119,34 @@ public class ContactTable {
         }
 
         return contact;
+    }
+
+    public ArrayList<ContactObject> getContactOfUserID(int userID){
+        ArrayList<ContactObject> listContact = new ArrayList<>();
+        String queryContact = "SELECT contactID FROM Contact WHERE userID = ?";
+        Cursor cursor = null;
+
+        try {
+            cursor = this.db.rawQuery(queryContact, new String[]{String.valueOf(userID)});
+            if(cursor == null || !cursor.moveToFirst()){
+                return listContact;
+            }
+            while (cursor.moveToNext()){
+                int contactIDIndex = cursor.getColumnIndex("contactID");
+                if(contactIDIndex >= 0){
+                    int contactID = cursor.getInt(contactIDIndex);
+                    listContact.add(this.getContactById(contactID));
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this.context, "Có lỗi khi lấy thông tin liên hệ của userID: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return listContact;
     }
 
 }

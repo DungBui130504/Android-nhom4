@@ -16,6 +16,13 @@ public class ContactObject {
         this.userID = userID;
     }
 
+    public ContactObject(String gmail, String name, boolean isTeacher, int userID) {
+        this.gmail = gmail;
+        this.name = name;
+        this.isTeacher = isTeacher;
+        this.userID = userID;
+    }
+
     public ContactObject() {
         this.contactID = -1;
         this.gmail = "none";
