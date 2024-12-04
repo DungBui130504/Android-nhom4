@@ -12,7 +12,6 @@ import com.example.myapplication.Constants.FormulaConstants;
 import com.example.myapplication.Constants.SubjectConstants;
 import com.example.myapplication.Constants.UserConstants;
 import com.example.myapplication.database.Database;
-import com.example.myapplication.models.Contact.ContactObject;
 
 import java.time.LocalDate;
 
