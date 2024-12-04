@@ -42,11 +42,13 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE Subject (" +
                 "subjectID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "subjectName TEXT NOT NULL);");
+                "subjectName TEXT NOT NULL," +
+                "userID INTEGER, " +
+                "FOREIGN KEY (userID) REFERENCES User(userID));");
 
         db.execSQL("CREATE TABLE Formula (" +
                 "formulaID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "formula TEXT NOT NULL, " +
+                "formulaContent TEXT NOT NULL, " +
                 "formulaName TEXT NOT NULL, " +
                 "formulaUpdatedDate TEXT, " +
                 "subjectID INTEGER NOT NULL, " +
@@ -55,7 +57,7 @@ public class Database extends SQLiteOpenHelper {
                 "FOREIGN KEY (userID) REFERENCES User(userID));");
 
         db.execSQL("CREATE TABLE QuestionAnswer (" +
-                "questionID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "questionAnswerID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "questionContent TEXT NOT NULL, " +
                 "answerContent TEXT, " +
                 "answerUpdateDate TEXT, " +
@@ -68,9 +70,10 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE Notification ("+
                 "notificationID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "notificationCreateDate TEXT PRIMARY KEY, " +
                 "notificationDateTime TEXT NOT NULL, " +
-                "description TEXT NOT NULL);");
+                "description TEXT NOT NULL," +
+                "userID INTEGER, " +
+                "FOREIGN KEY (userID) REFERENCES User(userID));");
 
         //insert data
         db.execSQL("INSERT INTO User (userName, password, gmail,nickName, phoneNumber) VALUES ('test', 'test', 'test@gmail.com','Nguyễn Hữu Đức' ,'091288321')");

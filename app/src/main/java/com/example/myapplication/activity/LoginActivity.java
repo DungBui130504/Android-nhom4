@@ -16,7 +16,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.login);
-
 //        UserTable users  = new UserTable(LoginActivity.this);
 
 //        login_btn = findViewById(R.id.login_button);
@@ -26,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 //                Toast.makeText(LoginActivity.this,String.valueOf(users.checkUserExisted("test1")) , Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
 //
     }
 
