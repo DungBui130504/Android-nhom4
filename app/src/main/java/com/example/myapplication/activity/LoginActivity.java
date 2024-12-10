@@ -4,15 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.User.UserObject;
+import com.example.myapplication.models.User.UserTable;
 
 public class LoginActivity extends AppCompatActivity {
-    public Button login_btn;
+    public Button loginBtn;
+    public EditText usernameTv;
+    public EditText passwordTv;
+    public CheckBox saveLoginCheckBox;
+    public  UserTable userTable ;
+
     TextView signInIntent;
 
     @Override
@@ -20,17 +30,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.login);
-//        UserTable users  = new UserTable(LoginActivity.this);
-
-//        login_btn = findViewById(R.id.login_button);
-//        login_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(LoginActivity.this,String.valueOf(users.checkUserExisted("test1")) , Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         signInIntent = findViewById(R.id.signInIntent);
+        loginBtn = findViewById(R.id.btn_login);
+        usernameTv = findViewById(R.id.username_login);
+        passwordTv = findViewById(R.id.password_login);
+        saveLoginCheckBox = findViewById(R.id.checkBoxSaveLogin);
+        userTable = new UserTable(LoginActivity.this);
 
         signInIntent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +45,23 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userName = usernameTv.getText().toString();
+                String passWord = passwordTv.getText().toString();
+                boolean saveLogin = saveLoginCheckBox.isChecked();
+                UserObject userObject = userTable.getUserByUserName(userName);
+                Toast.makeText(LoginActivity.this,userObject.passWord , Toast.LENGTH_SHORT).show();
+
+
+
+            }
+        });
+
+
+
     }
 
 }

@@ -30,7 +30,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:hint="Tài khoản"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:id="@+id/username_login"
+            />
 
         <EditText
             android:layout_width="265dp"
@@ -39,6 +41,7 @@
             android:layout_marginTop="40dp"
             android:hint="Mật khẩu"
             android:textSize="15dp"
+            android:id="@+id/password_login"
             />
 
         <TextView
@@ -55,7 +58,9 @@
             android:layout_gravity="left"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="50dp"
-            android:text="Lưu đăng nhập?"/>
+            android:text="Lưu đăng nhập?"
+            android:id="@+id/checkBoxSaveLogin"
+            />
 
         <Button
             android:layout_width="195dp"
@@ -65,7 +70,9 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/login_button"
             android:text="Đăng nhập"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:id="@+id/btn_login"
+            />
 
 
         <LinearLayout
