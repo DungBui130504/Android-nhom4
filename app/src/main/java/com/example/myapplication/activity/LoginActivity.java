@@ -53,7 +53,14 @@ public class LoginActivity extends AppCompatActivity {
                 String passWord = passwordTv.getText().toString();
                 boolean saveLogin = saveLoginCheckBox.isChecked();
                 UserObject userObject = userTable.getUserByUserName(userName);
-                Toast.makeText(LoginActivity.this,userObject.passWord , Toast.LENGTH_SHORT).show();
+                if(userObject == null){
+                    Toast.makeText(LoginActivity.this,"Tài khoản không tồn tại!" , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!passWord.equals(userObject.passWord)){
+                    Toast.makeText(LoginActivity.this,"Mật khẩu không chính xác!" , Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
 

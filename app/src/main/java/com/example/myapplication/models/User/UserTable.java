@@ -17,7 +17,7 @@ public class UserTable {
             try {
                 this.db = new Database(context).open();
             } catch (Exception e) {
-//                Toast.makeText(context, "Có lỗi khi kết nối db tại model User : " + e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Có lỗi khi kết nối db tại model User : " + e, Toast.LENGTH_SHORT).show();
             }
         } else {
             // Nếu context là null, có thể log hoặc xử lý lỗi ở đây
@@ -26,17 +26,17 @@ public class UserTable {
     }
     public boolean addNewUser(String userName, String password,String gmail ,String fullName, String phoneNumber){
         if(!gmail.contains("@gmail.com")){
-//            Toast.makeText(this.context,"Gmail không hợp lệ! " , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Gmail không hợp lệ! " , Toast.LENGTH_SHORT).show();
             return false ;
         }
         try {
             Integer number = Integer.valueOf(phoneNumber);
         } catch (NumberFormatException e) {
-//            Toast.makeText(this.context,"Số điện thoại không hợp lệ! " , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Số điện thoại không hợp lệ! " , Toast.LENGTH_SHORT).show();
             return false ;
         }
         if(checkUserExisted(userName)){
-//            Toast.makeText(this.context,"Username đã tồn tại! " , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Username đã tồn tại! " , Toast.LENGTH_SHORT).show();
             return false ;
         }
         String addUserStatement = "insert into User (username, password,gmail,fullName ,phoneNumber) values (?,?,?,?,?) ";
@@ -45,7 +45,7 @@ public class UserTable {
             add.close();
             return true;
         } catch (Exception e) {
-//            Toast.makeText(this.context,"Có lỗi khi thêm mới user : "+ e , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Có lỗi khi thêm mới user : "+ e , Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -65,7 +65,7 @@ public class UserTable {
             cur.close();
             return true;
         } catch (Exception e) {
-//            Toast.makeText(this.context,"Có lỗi khi xóa user : "+ e , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context,"Có lỗi khi xóa user : "+ e , Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -74,7 +74,7 @@ public class UserTable {
         UserObject user = new UserObject();
         Cursor cur = null;
         try {
-            String queryUser = "SELECT * FROM User WHERE userName = ?";
+            String queryUser = "SELECT * FROM User WHERE userID = ?";
             cur = this.db.rawQuery(queryUser, new String[]{String.valueOf(userID)});
 
             if (cur != null && cur.moveToFirst()) {
@@ -98,12 +98,12 @@ public class UserTable {
 
                     user = new UserObject(UserID,userName, passWord, gmail, fullName, phoneNumber);
                 } else {
-//                    Toast.makeText(this.context, "Cột không tồn tại trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, "Cột không tồn tại trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
                 }
             }
 
         } catch (Exception e) {
-//            Toast.makeText(this.context, "Có lỗi khi lấy thông tin user: " + e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "Có lỗi khi lấy thông tin user: " + e, Toast.LENGTH_SHORT).show();
         } finally {
             if (cur != null) {
                 cur.close();
@@ -117,8 +117,8 @@ public class UserTable {
         UserObject user = new UserObject();
         Cursor cur = null;
         try {
-            String queryUser = "SELECT * FROM User WHERE userID = ?";
-            cur = this.db.rawQuery(queryUser, new String[]{user_name});
+            String queryUser = "SELECT * FROM User WHERE userName = ?";
+            cur = this.db.rawQuery(queryUser, new String[]{user_name.trim()});
 
             if (cur != null && cur.moveToFirst()) {
                 int userIDIndex = cur.getColumnIndex("userID");
@@ -140,12 +140,12 @@ public class UserTable {
 
                     user = new UserObject(UserID,userName, passWord, gmail, fullName, phoneNumber);
                 } else {
-//                    Toast.makeText(this.context, "Cột không tồn tại trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, "Cột không tồn tại trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
                 }
             }
 
         } catch (Exception e) {
-//            Toast.makeText(this.context, "Có lỗi khi lấy thông tin user: " + e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "Có lỗi khi lấy thông tin user: " + e, Toast.LENGTH_SHORT).show();
         } finally {
             if (cur != null) {
                 cur.close();
