@@ -76,7 +76,7 @@ public class Database extends SQLiteOpenHelper {
                 "FOREIGN KEY (userID) REFERENCES User(userID));");
 
         //insert data
-        db.execSQL("INSERT INTO User (userName, password, gmail,nickName, phoneNumber) VALUES ('test', 'test', 'test@gmail.com','Nguyễn Hữu Đức' ,'091288321')");
+        db.execSQL("INSERT INTO User (userName, password, gmail,fullName, phoneNumber) VALUES ('test', 'test', 'test@gmail.com','Nguyễn Hữu Đức' ,'091288321')");
     }
 
     @Override
