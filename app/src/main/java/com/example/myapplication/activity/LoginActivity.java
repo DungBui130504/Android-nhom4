@@ -61,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Mật khẩu không chính xác!" , Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
-
+                Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
+                startActivity(i);
+                Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
             }
         });
 

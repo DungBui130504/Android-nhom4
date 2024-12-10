@@ -2,9 +2,13 @@ package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,7 +26,10 @@ import java.util.ArrayList;
 
 public class SubjectActivity extends AppCompatActivity {
     ImageButton subjectBack;
+    Button addSubjectBtn;
+    TextView cancelBtn;
     ListView subjectList;
+    LinearLayout addSubjectLayout, addSubjectBox;
     SubjectAdapter subjectAdapter;
     ArrayList<SubjectObject> subjects;
     SubjectTable subjectTable;
@@ -40,12 +47,23 @@ public class SubjectActivity extends AppCompatActivity {
 
         subjectBack = findViewById(R.id.subjectBack);
         subjectList = findViewById(R.id.subjectList);
+        addSubjectBtn = findViewById(R.id.addSubjectBtn);
+        addSubjectLayout = findViewById(R.id.addSubjectLayout);
+        addSubjectBox = findViewById(R.id.addSubjectBox);
+        cancelBtn = findViewById(R.id.cancelBtn);
 
+        subjectTable = new SubjectTable(this);
+
+        Log.d("Subjects: ", subjectTable.getSubjectsOfUserID(1).toString());
 
         subjects = new ArrayList<>();
         subjects.add(new SubjectObject(1, "Tiếng anh", 1));
         subjects.add(new SubjectObject(2, "Toán", 1));
         subjects.add(new SubjectObject(3, "Lịch sử", 1));
+        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
+        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
+        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
+        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
         subjects.add(new SubjectObject(4, "Ngữ văn", 1));
 
         subjectAdapter = new SubjectAdapter(SubjectActivity.this, subjects, R.layout.subject_item);
@@ -64,5 +82,32 @@ public class SubjectActivity extends AppCompatActivity {
                 }
             }
         });
+
+        addSubjectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    addSubjectLayout.setVisibility(View.VISIBLE);
+                    addSubjectBox.setVisibility(View.VISIBLE);
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    addSubjectLayout.setVisibility(View.GONE);
+                    addSubjectBox.setVisibility(View.GONE);
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }
