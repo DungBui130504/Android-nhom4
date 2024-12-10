@@ -4,9 +4,9 @@
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:angle="0"
-                android:startColor="#ff6581"
-                android:endColor="#ff9f8e"
+                android:angle="135"
+                android:startColor="#2BA579"
+                android:endColor="#6BBD46"
                 android:type="linear" />
             <!-- Chỉ sử dụng một thẻ <corners> -->
             <corners

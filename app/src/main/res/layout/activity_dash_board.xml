@@ -41,6 +41,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
         android:background="@drawable/dashboard_item"
+        android:id="@+id/subjectBtn"
         >
 
         <TextView
@@ -70,6 +71,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
         android:background="@drawable/dashboard_item"
+        android:id="@+id/notificationBtn"
         >
 
         <TextView
