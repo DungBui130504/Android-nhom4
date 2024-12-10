@@ -21,15 +21,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="50dp"
-        android:background="@color/white"
-        android:src="@drawable/pencil_icon" />
+        android:background="@null"
+        android:src="@drawable/edit" />
     
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="30dp"
-        android:src="@drawable/recycle_icon"
-        android:background="@color/white"/>
+        android:src="@drawable/trash"
+        android:background="@null"/>
 
 </LinearLayout>
