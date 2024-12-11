@@ -3,6 +3,7 @@ package com.example.myapplication.models.User;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.myapplication.database.Database;
@@ -12,10 +13,15 @@ public class UserTable {
     Context context;
     public UserTable (Context context){
         this.context = context;
-        try {
-            this.db = new Database(context).open();
-        } catch (Exception e) {
-            Toast.makeText(context,"Có lỗi khi kết nốt db tại model User : "+ e , Toast.LENGTH_SHORT).show();
+        if (this.context != null) {
+            try {
+                this.db = new Database(context).open();
+            } catch (Exception e) {
+                Toast.makeText(context, "Có lỗi khi kết nối db tại model User : " + e, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            // Nếu context là null, có thể log hoặc xử lý lỗi ở đây
+            Log.e("UserTable", "Context is null, cannot open database.");
         }
     }
     public boolean addNewUser(String userName, String password,String gmail ,String fullName, String phoneNumber){
@@ -73,6 +79,48 @@ public class UserTable {
 
             if (cur != null && cur.moveToFirst()) {
                 // Kiểm tra xem tên cột có hợp lệ không trước khi lấy giá trị
+                int userIDIndex = cur.getColumnIndex("userID");
+                int userNameIndex = cur.getColumnIndex("userName");
+                int passwordIndex = cur.getColumnIndex("password");
+                int gmailIndex = cur.getColumnIndex("gmail");
+                int fullNameIndex = cur.getColumnIndex("fullName");
+                int phoneNumberIndex = cur.getColumnIndex("phoneNumber");
+
+
+                // Kiểm tra nếu chỉ số cột hợp lệ (>= 0)
+                if (userNameIndex >= 0 && passwordIndex >= 0 && gmailIndex >= 0 && fullNameIndex >= 0 && phoneNumberIndex >= 0) {
+                    int UserID = cur.getInt(userIDIndex);
+                    String userName = cur.getString(userNameIndex);
+                    String passWord = cur.getString(passwordIndex);
+                    String gmail = cur.getString(gmailIndex);
+                    String fullName = cur.getString(fullNameIndex);
+                    String phoneNumber = cur.getString(phoneNumberIndex);
+
+                    user = new UserObject(UserID,userName, passWord, gmail, fullName, phoneNumber);
+                } else {
+                    Toast.makeText(this.context, "Cột không tồn tại trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this.context, "Có lỗi khi lấy thông tin user: " + e, Toast.LENGTH_SHORT).show();
+        } finally {
+            if (cur != null) {
+                cur.close();
+            }
+        }
+        return user;
+    }
+
+
+    public UserObject getUserByUserName(String user_name){
+        UserObject user = new UserObject();
+        Cursor cur = null;
+        try {
+            String queryUser = "SELECT * FROM User WHERE userName = ?";
+            cur = this.db.rawQuery(queryUser, new String[]{user_name.trim()});
+
+            if (cur != null && cur.moveToFirst()) {
                 int userIDIndex = cur.getColumnIndex("userID");
                 int userNameIndex = cur.getColumnIndex("userName");
                 int passwordIndex = cur.getColumnIndex("password");

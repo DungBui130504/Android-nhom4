@@ -25,10 +25,5 @@ public class UserObject {
     }
 
     public UserObject(){
-        this.userName = "none";
-        this.passWord = "none";
-        this.gmail = "none";
-        this.fullName = "none";
-        this.phoneNumber = "none";
     }
 }
