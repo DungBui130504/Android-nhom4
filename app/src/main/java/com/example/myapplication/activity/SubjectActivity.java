@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -101,7 +102,22 @@ public class SubjectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     addSubjectLayout.setVisibility(View.GONE);
+                    addSubjectLayout.setClickable(false);
                     addSubjectBox.setVisibility(View.GONE);
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    Toast.makeText(SubjectActivity.this, "Subject selected", Toast.LENGTH_SHORT).show();
+                    Intent iQuestion = new Intent(SubjectActivity.this, QuestionActivity.class);
+                    startActivity(iQuestion);
                 }
                 catch (Exception e) {
                     Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

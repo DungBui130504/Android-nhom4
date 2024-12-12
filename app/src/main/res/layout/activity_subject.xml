@@ -68,18 +68,20 @@
         android:layout_height="580dp"
         android:background="@drawable/subject_layout"
         android:orientation="vertical"
-        android:layout_marginTop="-65dp">
+        android:layout_marginTop="-65dp"
+        android:clickable="true">
 
         <ListView
             android:id="@+id/subjectList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="25dp"
             android:background="@null"
             android:dividerHeight="35dp"
-            android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent"/>
+            android:divider="@color/white"
+            android:listSelector="@color/black"
+            android:clickable="true"/>
 
     </LinearLayout>
 
