@@ -2,6 +2,7 @@ package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -28,11 +29,18 @@ public class DashBoardActivity extends AppCompatActivity {
         subjectBtn = findViewById(R.id.subjectBtn);
         loginBackBtn = findViewById(R.id.loginBackBtn);
 
+        Intent intent = getIntent();
+        int userId = intent.getIntExtra("userId", -1);
+        Log.d("User:", userId + "");
+
+
+        //Xem danh sách môn học
         subjectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     Intent i = new Intent(DashBoardActivity.this, SubjectActivity.class);
+                    i.putExtra("userId", userId);
                     startActivity(i);
                 }
                 catch (Exception e) {
@@ -41,6 +49,7 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
 
+        //Trở về đăng nhập
         loginBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -3,7 +3,6 @@ package com.example.myapplication.models.Subject;
 public class SubjectObject {
     public int subjectID;
     public String subjectName;
-
     public int userID;
 
 
@@ -44,5 +43,14 @@ public class SubjectObject {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    @Override
+    public String toString() {
+        return "SubjectObject{" +
+                "subjectID=" + subjectID +
+                ", subjectName='" + subjectName + '\'' +
+                ", userID=" + userID +
+                '}';
     }
 }

@@ -23,8 +23,5 @@ public class QuestionActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        Intent i = new Intent(QuestionActivity.this, SubjectActivity.class);
-
     }
 }

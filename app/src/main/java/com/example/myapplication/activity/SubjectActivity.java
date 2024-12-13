@@ -1,11 +1,14 @@
 package com.example.myapplication.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,15 +29,21 @@ import com.example.myapplication.models.Subject.SubjectTable;
 import java.util.ArrayList;
 
 public class SubjectActivity extends AppCompatActivity {
-    ImageButton subjectBack;
+    ImageButton subjectBack, editBtn, delBtn;
     Button addSubjectBtn;
-    TextView cancelBtn;
+    TextView cancelBtn, submitBtn;
+    EditText subjectName;
     ListView subjectList;
-    LinearLayout addSubjectLayout, addSubjectBox;
+    LinearLayout addSubjectLayout, addSubjectBox, subjectItemLayout;
     SubjectAdapter subjectAdapter;
     ArrayList<SubjectObject> subjects;
     SubjectTable subjectTable;
+    ArrayList<Integer> selectedList;
+    ArrayList<Integer> checkboxes;
+    int editSubject;
+    int check = -1;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,36 +55,41 @@ public class SubjectActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent intent = getIntent();
+        int userId = intent.getIntExtra("userId", -1);
+
         subjectBack = findViewById(R.id.subjectBack);
         subjectList = findViewById(R.id.subjectList);
         addSubjectBtn = findViewById(R.id.addSubjectBtn);
         addSubjectLayout = findViewById(R.id.addSubjectLayout);
         addSubjectBox = findViewById(R.id.addSubjectBox);
         cancelBtn = findViewById(R.id.cancelBtn);
+        submitBtn = findViewById(R.id.submitBtn);
+        subjectName = findViewById(R.id.subjectName);
+        subjectItemLayout = findViewById(R.id.subjectItemLayout);
+        editBtn = findViewById(R.id.editBtn);
+        delBtn = findViewById(R.id.delBtn);
+
+        selectedList = new ArrayList<>();
 
         subjectTable = new SubjectTable(this);
-
-        Log.d("Subjects: ", subjectTable.getSubjectsOfUserID(1).toString());
-
         subjects = new ArrayList<>();
-        subjects.add(new SubjectObject(1, "Tiếng anh", 1));
-        subjects.add(new SubjectObject(2, "Toán", 1));
-        subjects.add(new SubjectObject(3, "Lịch sử", 1));
-        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
-        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
-        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
-        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
-        subjects.add(new SubjectObject(4, "Ngữ văn", 1));
+        subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
+
+        Log.d("subject", subjects.toString());
 
         subjectAdapter = new SubjectAdapter(SubjectActivity.this, subjects, R.layout.subject_item);
         subjectList.setAdapter(subjectAdapter);
 
+        checkboxes = subjectAdapter.getCheckedIndexes();
+
+//        subjectTable.deleteAllSubjects();
+
+//        Nhấn nút trở về DashBoard
         subjectBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-//                    Intent i = new Intent(SubjectActivity.this, DashBoardActivity.class);
-//                    startActivity(i);
                     finish();
                 }
                 catch (Exception e) {
@@ -84,12 +98,14 @@ public class SubjectActivity extends AppCompatActivity {
             }
         });
 
+//        Nhấn nút thêm môn học
         addSubjectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     addSubjectLayout.setVisibility(View.VISIBLE);
                     addSubjectBox.setVisibility(View.VISIBLE);
+                    check = 0;
                 }
                 catch (Exception e) {
                     Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -97,6 +113,7 @@ public class SubjectActivity extends AppCompatActivity {
             }
         });
 
+//        Tắt layout thêm/ sửa môn học
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,13 +128,111 @@ public class SubjectActivity extends AppCompatActivity {
             }
         });
 
-        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        Xác nhận thêm/ sửa môn học mới
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onClick(View view) {
+                try {
+                    if (subjectName.getText().toString().isEmpty()) {
+                        Toast.makeText(SubjectActivity.this, "Bạn phải nhập tên môn học!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (check == 0) {
+                        subjectTable.addNewSubject(subjectName.getText().toString(), userId);
+                        subjects.clear();
+                        subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
+                        subjectAdapter.notifyDataSetChanged();
+                        Toast.makeText(SubjectActivity.this, "Thêm môn học thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                    if (check == 1) {
+                        if (selectedList.isEmpty()) {
+                            Toast.makeText(SubjectActivity.this, "Bạn phải chọn môn học cần sửa trước!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        subjectTable.updateSubjectName(subjects.get(editSubject).getSubjectID(), subjectName.getText().toString(), userId);
+                        subjects.clear();
+                        subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
+                        subjectAdapter.notifyDataSetChanged();
+                        Toast.makeText(SubjectActivity.this, "Sửa môn học thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                    addSubjectLayout.setVisibility(View.GONE);
+                    addSubjectLayout.setClickable(false);
+                    addSubjectBox.setVisibility(View.GONE);
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//        LongClick chọn môn học cần làm việc
+        subjectList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
                     Toast.makeText(SubjectActivity.this, "Subject selected", Toast.LENGTH_SHORT).show();
                     Intent iQuestion = new Intent(SubjectActivity.this, QuestionActivity.class);
                     startActivity(iQuestion);
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+
+//        Chọn môn học cần sửa
+        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    selectedList.add(i);
+                    editSubject = i;
+                    if (selectedList.size() > 1) {
+                        for (int j = 0; j < subjectList.getCount(); j++) {
+                            View reBackgroundView = subjectList.getChildAt(j);
+                            if (reBackgroundView != null) {
+                                reBackgroundView.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
+                    }
+                    view.setBackgroundColor(Color.parseColor("#00BCD4"));
+                    Log.d("selectedList:", selectedList.toString());
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//        Mở giao diện sửa môn học
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    addSubjectLayout.setVisibility(View.VISIBLE);
+                    addSubjectBox.setVisibility(View.VISIBLE);
+                    check = 1;
+                }
+                catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//        Xóa môn học
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    checkboxes = subjectAdapter.getCheckedIndexes();
+                    Log.d("checkboxes:", checkboxes.toString());
+                    for (int i = 0; i < checkboxes.size(); i++) {
+                        subjectTable.deleteSubjectByName(subjects.get(checkboxes.get(i)).getSubjectName());
+                    }
+                    subjects.clear();
+                    subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
+                    subjectAdapter.notifyDataSetChanged();
                 }
                 catch (Exception e) {
                     Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

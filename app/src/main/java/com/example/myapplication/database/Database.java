@@ -77,6 +77,7 @@ public class Database extends SQLiteOpenHelper {
 
         //insert data
         db.execSQL("INSERT INTO User (userName, password, gmail,fullName, phoneNumber) VALUES ('test', 'test', 'test@gmail.com','Nguyễn Hữu Đức' ,'091288321')");
+        db.execSQL("INSERT INTO User (userName, password, gmail,fullName, phoneNumber) VALUES ('Ark', '1235', 'Ark@gmail.com','Ark Zero' ,'000000000')");
     }
 
     @Override
