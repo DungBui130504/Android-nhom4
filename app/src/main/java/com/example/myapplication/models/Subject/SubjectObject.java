@@ -4,12 +4,15 @@ public class SubjectObject {
     public int subjectID;
     public String subjectName;
     public int userID;
+    private boolean isChecked;
 
 
     public SubjectObject(int subjectID, String subjectName ,int userID) {
         this.subjectID = subjectID;
         this.subjectName = subjectName;
         this.userID = userID;
+        this.isChecked = false;
+
     }
     public SubjectObject( String subjectName) {
         this.subjectName = subjectName;
@@ -43,6 +46,14 @@ public class SubjectObject {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
     @Override

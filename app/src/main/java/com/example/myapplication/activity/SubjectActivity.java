@@ -42,6 +42,7 @@ public class SubjectActivity extends AppCompatActivity {
     ArrayList<Integer> checkboxes;
     int editSubject;
     int check;
+    public static ArrayList<Integer> getCheckList = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -56,7 +57,8 @@ public class SubjectActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        int userId = intent.getIntExtra("userId", -1);
+//        int userId = intent.getIntExtra("userId", -1);
+        int userId = 1;
 
         //Anh xa
         subjectBack = findViewById(R.id.subjectBack);
@@ -81,8 +83,6 @@ public class SubjectActivity extends AppCompatActivity {
 
         subjectAdapter = new SubjectAdapter(SubjectActivity.this, subjects, R.layout.subject_item);
         subjectList.setAdapter(subjectAdapter);
-
-        checkboxes = subjectAdapter.getCheckedIndexes();
 
 //        subjectTable.deleteAllSubjects();
 
@@ -232,12 +232,13 @@ public class SubjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    checkboxes = subjectAdapter.getCheckedIndexes();
-                    Log.d("checkboxes:", checkboxes.toString());
-                    for (int i = 0; i < checkboxes.size(); i++) {
+                    Log.d("checkboxes:", getCheckList.toString());
+                    for (int i = 0; i < getCheckList.size(); i++) {
                         //Day la truy van xoa
-                        subjectTable.deleteSubjectByName(subjects.get(checkboxes.get(i)).getSubjectName());
+                        Log.d("name:", subjects.get(getCheckList.get(i)).getSubjectName().trim());
+                        subjectTable.deleteSubjectByName(subjects.get(getCheckList.get(i)).getSubjectName().trim(), userId);
                     }
+                    getCheckList.clear();
                     subjects.clear();
                     subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
                     subjectAdapter.notifyDataSetChanged();

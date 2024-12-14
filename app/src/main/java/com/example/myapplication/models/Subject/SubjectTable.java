@@ -85,7 +85,7 @@ public class SubjectTable {
     }
 
     // Xóa một subject theo tên môn học
-    public boolean deleteSubjectByName(String subjectName) {
+    public boolean deleteSubjectByName(String subjectName, int userId) {
         try {
             // Câu lệnh SQL xóa môn học theo tên
             String querySubject = "DELETE FROM Subject WHERE subjectName = ?";

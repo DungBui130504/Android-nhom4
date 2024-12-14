@@ -8,76 +8,77 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.SubjectActivity;
 import com.example.myapplication.models.Subject.SubjectObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SubjectAdapter extends ArrayAdapter<SubjectObject> {
     private final Activity context;
     private final int ID;
     private final ArrayList<SubjectObject> myList;
-    private final ArrayList<Boolean> checkedStates; // Danh sách trạng thái của CheckBox
 
     public SubjectAdapter(Activity context, ArrayList<SubjectObject> myList, int ID) {
         super(context, ID, myList);
         this.context = context;
         this.myList = myList;
         this.ID = ID;
-
-//         Khởi tạo danh sách trạng thái mặc định là false
-        checkedStates = new ArrayList<>();
-        for (int i = 0; i < myList.size(); i++) {
-            checkedStates.add(false);
-        }
     }
 
     @SuppressLint({"SetTextI18n", "ViewHolder"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
-        convertView = inflater.inflate(ID, null);
+        // Kiểm tra nếu convertView == null để tạo mới
+            LayoutInflater inflater = context.getLayoutInflater();
+            convertView = inflater.inflate(ID, parent, false);  // Inflate layout
 
-        // Lấy item tại vị trí hiện tại
-        SubjectObject sb = myList.get(position);
+            // Khởi tạo các view trong convertView
+            TextView subjectItem = convertView.findViewById(R.id.subjectItem);
+            CheckBox checkBox = convertView.findViewById(R.id.subjectChk);
 
-        // Tham chiếu đến TextView và CheckBox
-        TextView subjectItem = convertView.findViewById(R.id.subjectItem);
-        CheckBox checkBox = convertView.findViewById(R.id.subjectChk);
+            // Gán dữ liệu vào TextView
+            subjectItem.setText(myList.get(position).getSubjectName()); // Giả sử bạn có phương thức getSubjectName()
 
-        // Hiển thị tên môn học
-        subjectItem.setText(sb.getSubjectName());
+            // Thiết lập trạng thái checkbox từ đối tượng SubjectObject
+            checkBox.setChecked(myList.get(position).isChecked()); // Sử dụng trạng thái lưu trong đối tượng
 
-        // Đảm bảo vị trí không vượt quá kích thước của checkedStates
-        if (position < checkedStates.size()) {
-            checkBox.setChecked(checkedStates.get(position));
-        }
+            // Xử lý sự kiện khi checkbox thay đổi trạng thái
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    try {
+                        // Cập nhật trạng thái checkbox vào đối tượng dữ liệu
+                        myList.get(position).setChecked(isChecked);
 
-        // Lắng nghe sự kiện thay đổi trạng thái của CheckBox
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (position < checkedStates.size()) {
-                checkedStates.set(position, isChecked);
-            }
-        });
+                        // Cập nhật mảng checkedItems khi checkbox được chọn hoặc bỏ chọn
+                        if (isChecked) {
+                            // Nếu checkbox được check, thêm chỉ số vào mảng
+                            SubjectActivity.getCheckList.add(position);
+                        } else {
+                            // Nếu checkbox uncheck, loại bỏ chỉ số khỏi mảng
+                            SubjectActivity.getCheckList.remove(Integer.valueOf(position));
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         return convertView;
     }
 
-//     Phương thức lấy danh sách các index của item được check
-    public ArrayList<Integer> getCheckedIndexes() {
-        ArrayList<Integer> checkedIndexes = new ArrayList<>();
-        for (int i = 0; i < checkedStates.size(); i++) {
-            if (checkedStates.get(i)) {
-                checkedIndexes.add(i);
-            }
-        }
-        return checkedIndexes;
-    }
 }
+
+
+
