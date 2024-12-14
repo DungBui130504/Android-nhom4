@@ -2,7 +2,6 @@ package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -54,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
                 String passWord = passwordTv.getText().toString();
                 boolean saveLogin = saveLoginCheckBox.isChecked();
                 UserObject userObject = userTable.getUserByUserName(userName);
-                int userId = userObject.getUserID();
                 if(userObject == null){
                     Toast.makeText(LoginActivity.this,"Tài khoản không tồn tại!" , Toast.LENGTH_SHORT).show();
                     return;
@@ -63,10 +61,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Mật khẩu không chính xác!" , Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
-                i.putExtra("userId", userId);
-                startActivity(i);
-                Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
+
+
             }
         });
 

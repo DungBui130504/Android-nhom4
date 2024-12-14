@@ -144,6 +144,11 @@ public class SubjectTable {
             if (cursor == null || !cursor.moveToFirst()) {
                 return listSubject;
             }
+            int subjectIDIndex0 = cursor.getColumnIndex("subjectID");
+            if (subjectIDIndex0 >= 0) {
+                int subjectID = cursor.getInt(subjectIDIndex0);
+                listSubject.add(this.getSubjectById(subjectID));
+            }
             while (cursor.moveToNext()) {
                 int subjectIDIndex = cursor.getColumnIndex("subjectID");
                 if (subjectIDIndex >= 0) {
