@@ -27,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
         int userID = mySharedPrefer.getInt("userID", -1);
         Log.d("MainActivity", "userID: " + userID);
         Toast.makeText(MainActivity.this, "userID: " + userID, Toast.LENGTH_SHORT).show();
-        if(userID <= 0){
+        if(userID < 0){
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
-        }else {
+            Toast.makeText(MainActivity.this, "chua dang nhap", Toast.LENGTH_SHORT).show();
 
+        }else {
+            Toast.makeText(MainActivity.this, "da dang nhap", Toast.LENGTH_SHORT).show();
         }
 
 
