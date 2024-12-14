@@ -77,7 +77,7 @@ public class SubjectActivity extends AppCompatActivity {
         subjects = new ArrayList<>();
         subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
 
-        Log.d("subject", subjects.toString());
+        Log.d("subject:", subjects.toString());
 
         subjectAdapter = new SubjectAdapter(SubjectActivity.this, subjects, R.layout.subject_item);
         subjectList.setAdapter(subjectAdapter);

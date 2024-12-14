@@ -80,18 +80,4 @@ public class SubjectAdapter extends ArrayAdapter<SubjectObject> {
         }
         return checkedIndexes;
     }
-
-    public void updateData(List<SubjectObject> newList) {
-        myList.clear();
-        myList.addAll(newList);
-
-        // Đồng bộ lại checkedStates
-        checkedStates.clear();
-        for (int i = 0; i < newList.size(); i++) {
-            checkedStates.add(false);
-        }
-
-        notifyDataSetChanged();
-    }
-
 }
