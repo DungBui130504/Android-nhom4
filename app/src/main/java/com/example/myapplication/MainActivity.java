@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,10 +21,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        deleteDatabase("app_database.db");
+//        deleteDatabase("app_database.db");
         SharedPreferences mySharedPrefer = getSharedPreferences("mySharedPrefer", MODE_PRIVATE);
 
-        int userID = mySharedPrefer.getInt("userID" , -1);
+        int userID = mySharedPrefer.getInt("userID", -1);
+        Log.d("MainActivity", "userID: " + userID);
+        Toast.makeText(MainActivity.this, "userID: " + userID, Toast.LENGTH_SHORT).show();
         if(userID <= 0){
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
