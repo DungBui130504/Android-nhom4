@@ -136,7 +136,7 @@ public class SubjectTable {
     // Lấy tất cả các subject của một userID
     public ArrayList<SubjectObject> getSubjectsOfUserID(int userID) {
         ArrayList<SubjectObject> listSubject = new ArrayList<>();
-        String querySubject = "SELECT subjectID FROM Subject WHERE userID = ?";
+        String querySubject = "SELECT * FROM Subject WHERE userID = ?";
         Cursor cursor = null;
 
         try {

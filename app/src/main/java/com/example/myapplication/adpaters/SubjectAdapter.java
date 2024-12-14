@@ -17,6 +17,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.models.Subject.SubjectObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubjectAdapter extends ArrayAdapter<SubjectObject> {
     private final Activity context;
@@ -47,20 +48,24 @@ public class SubjectAdapter extends ArrayAdapter<SubjectObject> {
         // Lấy item tại vị trí hiện tại
         SubjectObject sb = myList.get(position);
 
-        // Tham chiếu đến TextView và CheckBox trong layout
+        // Tham chiếu đến TextView và CheckBox
         TextView subjectItem = convertView.findViewById(R.id.subjectItem);
         CheckBox checkBox = convertView.findViewById(R.id.subjectChk);
 
         // Hiển thị tên môn học
         subjectItem.setText(sb.getSubjectName());
 
-//         Gán trạng thái cho CheckBox từ danh sách trạng thái
-        checkBox.setChecked(checkedStates.get(position));
+        // Đảm bảo vị trí không vượt quá kích thước của checkedStates
+        if (position < checkedStates.size()) {
+            checkBox.setChecked(checkedStates.get(position));
+        }
 
-//         Lắng nghe sự kiện thay đổi trạng thái của CheckBox
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked) ->
-                checkedStates.set(position, isChecked)
-        );
+        // Lắng nghe sự kiện thay đổi trạng thái của CheckBox
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (position < checkedStates.size()) {
+                checkedStates.set(position, isChecked);
+            }
+        });
 
         return convertView;
     }
@@ -75,4 +80,18 @@ public class SubjectAdapter extends ArrayAdapter<SubjectObject> {
         }
         return checkedIndexes;
     }
+
+    public void updateData(List<SubjectObject> newList) {
+        myList.clear();
+        myList.addAll(newList);
+
+        // Đồng bộ lại checkedStates
+        checkedStates.clear();
+        for (int i = 0; i < newList.size(); i++) {
+            checkedStates.add(false);
+        }
+
+        notifyDataSetChanged();
+    }
+
 }

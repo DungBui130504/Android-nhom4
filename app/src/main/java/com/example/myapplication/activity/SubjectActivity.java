@@ -41,7 +41,7 @@ public class SubjectActivity extends AppCompatActivity {
     ArrayList<Integer> selectedList;
     ArrayList<Integer> checkboxes;
     int editSubject;
-    int check = -1;
+    int check;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -58,6 +58,7 @@ public class SubjectActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int userId = intent.getIntExtra("userId", -1);
 
+        //Anh xa
         subjectBack = findViewById(R.id.subjectBack);
         subjectList = findViewById(R.id.subjectList);
         addSubjectBtn = findViewById(R.id.addSubjectBtn);
@@ -108,7 +109,7 @@ public class SubjectActivity extends AppCompatActivity {
                     check = 0;
                 }
                 catch (Exception e) {
-                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubjectActivity.this, "Không thể mở giao diện thêm môn học!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -123,7 +124,7 @@ public class SubjectActivity extends AppCompatActivity {
                     addSubjectBox.setVisibility(View.GONE);
                 }
                 catch (Exception e) {
-                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubjectActivity.this, "Không thể tắt giao diện này!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -139,9 +140,7 @@ public class SubjectActivity extends AppCompatActivity {
                     }
                     if (check == 0) {
                         subjectTable.addNewSubject(subjectName.getText().toString(), userId);
-                        subjects.clear();
-                        subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
-                        subjectAdapter.notifyDataSetChanged();
+                        Log.d("onClick:", "add subject!");
                         Toast.makeText(SubjectActivity.this, "Thêm môn học thành công!", Toast.LENGTH_SHORT).show();
                     }
                     if (check == 1) {
@@ -150,17 +149,25 @@ public class SubjectActivity extends AppCompatActivity {
                             return;
                         }
                         subjectTable.updateSubjectName(subjects.get(editSubject).getSubjectID(), subjectName.getText().toString(), userId);
-                        subjects.clear();
-                        subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
-                        subjectAdapter.notifyDataSetChanged();
+                        Log.d("onClick:", "update subject!");
                         Toast.makeText(SubjectActivity.this, "Sửa môn học thành công!", Toast.LENGTH_SHORT).show();
                     }
+                    subjects.clear();
+                    subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
+                    Log.d("add", subjects.toString());
+                    subjectAdapter.notifyDataSetChanged();
                     addSubjectLayout.setVisibility(View.GONE);
                     addSubjectLayout.setClickable(false);
+                    subjectName.setText("");
                     addSubjectBox.setVisibility(View.GONE);
                 }
                 catch (Exception e) {
-                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (check == 0) {
+                        Toast.makeText(SubjectActivity.this, "Thêm môn học lỗi!", Toast.LENGTH_SHORT).show();
+                    }
+                    if (check == 1) {
+                        Toast.makeText(SubjectActivity.this, "Sửa môn học lỗi!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -175,7 +182,7 @@ public class SubjectActivity extends AppCompatActivity {
                     startActivity(iQuestion);
                 }
                 catch (Exception e) {
-                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubjectActivity.this, "Không chọn được môn học!", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -200,7 +207,7 @@ public class SubjectActivity extends AppCompatActivity {
                     Log.d("selectedList:", selectedList.toString());
                 }
                 catch (Exception e) {
-                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubjectActivity.this, "Không chọn được môn cần sửa!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -215,7 +222,7 @@ public class SubjectActivity extends AppCompatActivity {
                     check = 1;
                 }
                 catch (Exception e) {
-                    Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubjectActivity.this, "Không mở được giao diện sửa!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -228,13 +235,16 @@ public class SubjectActivity extends AppCompatActivity {
                     checkboxes = subjectAdapter.getCheckedIndexes();
                     Log.d("checkboxes:", checkboxes.toString());
                     for (int i = 0; i < checkboxes.size(); i++) {
+                        //Day la truy van xoa
                         subjectTable.deleteSubjectByName(subjects.get(checkboxes.get(i)).getSubjectName());
                     }
                     subjects.clear();
                     subjects.addAll(subjectTable.getSubjectsOfUserID(userId));
                     subjectAdapter.notifyDataSetChanged();
+                    subjectName.setText("");
                 }
                 catch (Exception e) {
+                    Toast.makeText(SubjectActivity.this, "Lỗi khi xóa môn học!", Toast.LENGTH_SHORT).show();
                     Toast.makeText(SubjectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
