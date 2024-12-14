@@ -235,8 +235,8 @@ public class SubjectActivity extends AppCompatActivity {
                     Log.d("checkboxes:", getCheckList.toString());
                     for (int i = 0; i < getCheckList.size(); i++) {
                         //Day la truy van xoa
-                        Log.d("name:", subjects.get(getCheckList.get(i)).getSubjectName().trim());
-                        subjectTable.deleteSubjectByName(subjects.get(getCheckList.get(i)).getSubjectName().trim(), userId);
+                        Log.d("name:", subjects.get(getCheckList.get(i)).getSubjectName());
+                        subjectTable.deleteSubjectByName(subjects.get(getCheckList.get(i)).getSubjectName(), userId);
                     }
                     getCheckList.clear();
                     subjects.clear();
@@ -250,6 +250,5 @@ public class SubjectActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

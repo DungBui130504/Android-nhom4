@@ -87,9 +87,9 @@ public class SubjectTable {
     // Xóa một subject theo tên môn học
     public boolean deleteSubjectByName(String subjectName, int userId) {
         try {
-            // Câu lệnh SQL xóa môn học theo tên
-            String querySubject = "DELETE FROM Subject WHERE subjectName = ?";
-            this.db.execSQL(querySubject, new String[]{subjectName});
+            // Câu lệnh SQL xóa môn học theo tên và userId
+            String querySubject = "DELETE FROM Subject WHERE subjectName = ? AND userId = ?";
+            this.db.execSQL(querySubject, new Object[]{subjectName, userId}); // Dùng Object[] thay vì String[]
             return true;
         } catch (Exception e) {
             // Xử lý lỗi nếu có
@@ -97,6 +97,7 @@ public class SubjectTable {
             return false;
         }
     }
+
 
 
     // Lấy thông tin subject theo subjectID
