@@ -26,4 +26,12 @@ public class UserObject {
 
     public UserObject(){
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 }

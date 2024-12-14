@@ -2,18 +2,15 @@
     <shape xmlns:android="http://schemas.android.com/apk/res/android">
         <!-- Màu nền của drawable -->
     <gradient
-        android:angle="0"
-        android:startColor="#ff6581"
-        android:endColor="#ff9f8e"
+        android:angle="90"
+        android:startColor="#FFFFFF"
+        android:endColor="#FFFFFF"
         android:type="linear" /> <!-- Màu trắng, bạn có thể thay đổi theo ý muốn -->
 
-        <!-- Viền cong -->
-        <corners android:radius="40dp"/>  <!-- Viền cong 8dp -->
-
-        <!-- Đổ bóng -->
-<!--        <padding android:left="0dp" android:top="0dp" android:right="0dp" android:bottom="0dp"/>-->
-
-        <stroke
-            android:width="0.7dp"
-            android:color="#C7C7C7" /> <!-- Thêm viền nếu cần (màu đen và độ dày 2dp) -->
+    <stroke
+        android:color="#4CAF50"
+        android:width="1dp" />
+    <!-- Chỉ sử dụng một thẻ <corners> -->
+    <corners
+        android:radius="50dp" />
     </shape>

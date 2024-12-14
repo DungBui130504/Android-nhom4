@@ -21,7 +21,8 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/subject_back_btn"
             android:gravity="center"
-            android:src="@drawable/arrow_back_icon" />
+            android:src="@drawable/arrow_back_icon"
+            android:id="@+id/loginBackBtn"/>
 
         <TextView
             android:layout_width="462dp"
@@ -41,6 +42,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
         android:background="@drawable/dashboard_item"
+        android:id="@+id/subjectBtn"
         >
 
         <TextView
@@ -70,6 +72,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
         android:background="@drawable/dashboard_item"
+        android:id="@+id/notificationBtn"
         >
 
         <TextView

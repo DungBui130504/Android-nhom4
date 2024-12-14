@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@drawable/subject_item"
-    android:elevation="10dp"
-    android:layout_marginTop="30dp"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:id="@+id/subjectItemLayout"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tiếng Anh"
-        android:textSize="20dp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/subject_item"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginLeft="50dp"
-        android:textColor="@color/white"
-        />
+        tools:ignore="MissingConstraints"
+        >
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="130dp"
-        android:src="@drawable/edit"
-        android:background="@null" />
+        <TextView
+            android:id="@+id/subjectItem"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:textColor="#8E8E8E"
+            android:textSize="15dp" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="40dp"
-        android:background="@null"
-        android:src="@drawable/trash"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="80dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:id="@+id/subjectChk"/>
+
+    </LinearLayout>
 
 </LinearLayout>
