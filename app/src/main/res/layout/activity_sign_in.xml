@@ -45,6 +45,36 @@
             android:id="@+id/txtRegPassWord"
             />
 
+        <EditText
+            android:layout_width="265dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:hint="Nhập lại mật khẩu"
+            android:textSize="15dp"
+            android:id="@+id/txtRePassWord"
+            />
+
+        <EditText
+            android:layout_width="265dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:hint="Nhập email"
+            android:textSize="15dp"
+            android:id="@+id/txtRegEmail"
+            />
+
+        <EditText
+            android:layout_width="265dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:hint="Nhập số điện thoại"
+            android:textSize="15dp"
+            android:id="@+id/txtRegPhone"
+            />
+
 
         <CheckBox
             android:layout_width="150dp"
@@ -64,7 +94,9 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/login_button"
             android:text="Đăng ký"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:id="@+id/btnReg"
+            />
 
 
         <LinearLayout
