@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        deleteDatabase("app_database.db");
+//        deleteDatabase("app_database.db");
         SharedPreferences mySharedPrefer = getSharedPreferences("mySharedPrefer", MODE_PRIVATE);
         SharedPreferences.Editor editor = mySharedPrefer.edit();
 

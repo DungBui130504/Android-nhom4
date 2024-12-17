@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putInt("userID",userObject.userID);
                     editor.apply();
                 }
-                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent loginIntent = new Intent(LoginActivity.this, DashBoardActivity.class);
                 startActivity(loginIntent);
 
 
