@@ -77,7 +77,8 @@ public class SignInActivity extends AppCompatActivity {
                 String phone = txtPhone.getText().toString();
                 boolean saveReg = ckSaveReg.isChecked();
                 UserObject newUser = userTable.addNewUser(userName,passWord,email,fullName,phone);
-                if(newUser == null){
+
+                if(newUser.passWord == null){
                     Toast.makeText(SignInActivity.this, "Có lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();
                     return;
                 }

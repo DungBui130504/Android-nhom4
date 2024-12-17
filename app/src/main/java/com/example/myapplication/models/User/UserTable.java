@@ -39,13 +39,13 @@ public class UserTable {
             Toast.makeText(this.context,"Username đã tồn tại! " , Toast.LENGTH_SHORT).show();
             return null ;
         }
-        String addUserStatement = "insert into User (username, password,gmail,fullName ,phoneNumber) values (?,?,?,?,?) ";
-        try{
-            Cursor add = this.db.rawQuery(addUserStatement ,new String[]{userName,password,gmail,fullName,phoneNumber});
-            add.close();
+        String addUserStatement = "insert into User (userName, password,gmail,fullName ,phoneNumber) values (?,?,?,?,?) ";
+        try {
+            this.db.execSQL(addUserStatement, new Object[]{userName, password, gmail, fullName, phoneNumber});
             return this.getUserByUserName(userName);
         } catch (Exception e) {
-            Toast.makeText(this.context,"Có lỗi khi thêm mới user : "+ e , Toast.LENGTH_SHORT).show();
+            Log.d("loi_dang_ky", "Có lỗi khi thêm mới user: " + e.toString());
+            Toast.makeText(this.context, "Có lỗi khi thêm mới user: " + e.toString(), Toast.LENGTH_SHORT).show();
             return null;
         }
     }
