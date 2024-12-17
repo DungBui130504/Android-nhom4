@@ -44,12 +44,12 @@
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/txtRePassWord"
+            android:id="@+id/txtFullName"
             android:layout_width="265dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:hint="Nhập lại mật khẩu"
+            android:hint="Nhập họ tên"
             android:textSize="15dp" />
 
         <EditText
