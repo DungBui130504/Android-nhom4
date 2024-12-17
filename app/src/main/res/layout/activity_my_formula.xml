@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.SubjectActivity"
     android:orientation="vertical"
-    android:background="@drawable/gradient_purple_header"
+    android:background="@drawable/gradient_green"
     android:fitsSystemWindows="true"
     >
 
