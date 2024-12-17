@@ -11,8 +11,8 @@
     tools:context=".activity.SignInActivity">
 
     <LinearLayout
-        android:layout_width="357dp"
-        android:layout_height="776dp"
+        android:layout_width="match_parent"
+        android:layout_height="866dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/sign_in_workplace"
         android:orientation="vertical">
@@ -26,67 +26,62 @@
             android:textSize="40dp" />
 
         <EditText
+            android:id="@+id/regTxtUserName"
             android:layout_width="265dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:hint="Tài khoản"
-            android:textSize="15dp"
-            android:id="@+id/regTxtUserName"
-            />
+            android:textSize="15dp" />
 
         <EditText
+            android:id="@+id/txtRegPassWord"
             android:layout_width="265dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:hint="Mật khẩu"
-            android:textSize="15dp"
-            android:id="@+id/txtRegPassWord"
-            />
+            android:textSize="15dp" />
 
         <EditText
+            android:id="@+id/txtRePassWord"
             android:layout_width="265dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:hint="Nhập lại mật khẩu"
-            android:textSize="15dp"
-            android:id="@+id/txtRePassWord"
-            />
+            android:textSize="15dp" />
 
         <EditText
+            android:id="@+id/txtRegEmail"
             android:layout_width="265dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:hint="Nhập email"
-            android:textSize="15dp"
-            android:id="@+id/txtRegEmail"
-            />
+            android:textSize="15dp" />
 
         <EditText
+            android:id="@+id/txtRegPhone"
             android:layout_width="265dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:hint="Nhập số điện thoại"
-            android:textSize="15dp"
-            android:id="@+id/txtRegPhone"
-            />
+            android:textSize="15dp" />
 
 
         <CheckBox
+            android:id="@+id/saveReg"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="left"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
-            android:text="Lưu tài khoản?"
-            android:id="@+id/saveReg"
-            />
+            android:text="Lưu tài khoản?" />
 
         <Button
+            android:id="@+id/btnReg"
             android:layout_width="195dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -94,9 +89,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/login_button"
             android:text="Đăng ký"
-            android:textColor="@color/white"
-            android:id="@+id/btnReg"
-            />
+            android:textColor="@color/white" />
 
 
         <LinearLayout

@@ -6,7 +6,7 @@
             <!-- Chỉ sử dụng một thẻ <corners> -->
             <corners
                 android:topRightRadius="40dp"
-                android:bottomRightRadius="40dp" />
+                android:bottomRightRadius="0dp" />
         </shape>
     </item>
 </layer-list>
