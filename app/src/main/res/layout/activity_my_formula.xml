@@ -28,17 +28,9 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/subject_back_btn"
                 android:gravity="center"
+                android:id="@+id/backBtn"
                 android:src="@drawable/arrow_back_icon" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:layout_marginTop="20dp"
-                android:background="@android:color/transparent"
-                android:text="Ngay 28 Thang 11 Nam 2024"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout

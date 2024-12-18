@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,11 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuWrapperICS;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -57,9 +62,9 @@ public class SubjectActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        int userId = intent.getIntExtra("userId", -2);
-        Log.d("Id of me:", userId + "");
-//        int userId = 1;
+//        int userId = intent.getIntExtra("userId", -2);
+//        Log.d("Id of me:", userId + "");
+        int userId = 1;
 
         //Anh xa
         subjectBack = findViewById(R.id.subjectBack);
@@ -178,16 +183,43 @@ public class SubjectActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
-                    Toast.makeText(SubjectActivity.this, "Subject selected", Toast.LENGTH_SHORT).show();
-                    Intent iQuestion = new Intent(SubjectActivity.this, QuestionActivity.class);
-                    startActivity(iQuestion);
-                }
-                catch (Exception e) {
+                    // Tạo PopupMenu với điểm neo là view (item được nhấn)
+                    PopupMenu popupMenu = new PopupMenu(SubjectActivity.this, view);
+                    popupMenu.getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
+
+                    // Xử lý sự kiện chọn menu
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            try {
+                                int itemId = menuItem.getItemId();
+                                if (itemId == R.id.option_1) {
+                                    Intent iQuestion = new Intent(SubjectActivity.this, QuestionActivity.class);
+                                    startActivity(iQuestion);
+                                    return true;
+                                } else if (itemId == R.id.option_2) {
+                                    Intent iQuestion2 = new Intent(SubjectActivity.this, MyFormulaActivity.class);
+                                    startActivity(iQuestion2);
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(SubjectActivity.this, "Lỗi khi xử lý menu!", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                        }
+                    });
+
+                    // Hiển thị menu
+                    popupMenu.show();
+                } catch (Exception e) {
                     Toast.makeText(SubjectActivity.this, "Không chọn được môn học!", Toast.LENGTH_SHORT).show();
                 }
-                return false;
+                return true; // Xử lý sự kiện long click xong
             }
         });
+
 
 //        Chọn môn học cần sửa
         subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
