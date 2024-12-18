@@ -1,5 +1,6 @@
 package com.example.myapplication.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.myapplication.R;
 
 public class QuestionActivity extends AppCompatActivity {
-    ImageButton questionBack;
+    ImageButton questionBack, addBtn;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         questionBack = findViewById(R.id.questionBack);
+        addBtn = findViewById(R.id.addBtn);
 
         questionBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +41,19 @@ public class QuestionActivity extends AppCompatActivity {
                 }
                 catch (Exception e) {
                     Toast.makeText(QuestionActivity.this, "Không trở về được!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent i = new Intent(QuestionActivity.this, AddQuestionActivity.class);
+                    startActivity(i);
+                }
+                catch (Exception e) {
                     Toast.makeText(QuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }

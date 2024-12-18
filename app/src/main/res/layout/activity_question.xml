@@ -48,6 +48,7 @@
                 android:src="@drawable/plus"
                 android:layout_marginTop="14dp"
                 android:layout_marginLeft="150dp"
+                android:id="@+id/addBtn"
                 android:background="@drawable/subject_back_btn"/>
         </LinearLayout>
 

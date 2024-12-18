@@ -24,6 +24,7 @@
                 android:src="@drawable/arrow_back_icon"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/backBtn"
                 android:background="@drawable/subject_back_btn"/>
 
             <TextView
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/submit"
                 android:background="@drawable/subject_back_btn"
-                android:layout_marginLeft="260dp"
+                android:layout_marginLeft="240dp"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -52,10 +53,11 @@
     </LinearLayout>
 
     <EditText
-        android:layout_width="385dp"
+        android:layout_width="350dp"
         android:layout_height="230dp"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
+        android:padding="15dp"
         android:hint="
 Nhập nội dung câu hỏi ở đây..."
         android:gravity="start|top"
@@ -64,9 +66,10 @@ Nhập nội dung câu hỏi ở đây..."
         android:background="@drawable/add_question"/>
 
     <EditText
-        android:layout_width="385dp"
+        android:layout_width="350dp"
         android:layout_height="430dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
+        android:padding="15dp"
         android:layout_gravity="center"
         android:hint="
 
