@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,9 +15,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adpaters.QuestionAdapter;
+import com.example.myapplication.models.QuestionAnswer.QuestionAnswerObject;
+import com.example.myapplication.models.QuestionAnswer.QuestionAnswerTable;
+
+import java.util.ArrayList;
 
 public class QuestionActivity extends AppCompatActivity {
     ImageButton questionBack, addBtn;
+    ListView questionList;
+    ArrayList<QuestionAnswerObject> questions;
+    QuestionAdapter questionAdapter;
+    QuestionAnswerTable questionAnswerTable;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,6 +43,15 @@ public class QuestionActivity extends AppCompatActivity {
 
         questionBack = findViewById(R.id.questionBack);
         addBtn = findViewById(R.id.addBtn);
+        questionList = findViewById(R.id.questionList);
+        questions = new ArrayList<>();
+
+        questionAnswerTable = new QuestionAnswerTable(this);
+
+        questions.addAll(questionAnswerTable.getQuestionAnswersOfUserID(1));
+
+        questionAdapter = new QuestionAdapter(QuestionActivity.this, questions, R.layout.question_item);
+
 
         questionBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,6 +9,8 @@ public class QuestionAnswerObject {
     public int subjectID;
     public boolean isAnswer;
     public int userID;
+    private boolean isChecked;
+
 
     public QuestionAnswerObject() {
         this.questionAnswerID = -1;
@@ -19,6 +21,7 @@ public class QuestionAnswerObject {
         this.subjectID = -1;
         this.isAnswer = false;
         this.userID = -1;
+
     }
 
     public QuestionAnswerObject(int questionAnswerID, String questionContent, String answerContent, String answerUpdateDate,
@@ -42,5 +45,21 @@ public class QuestionAnswerObject {
         this.subjectID = subjectID;
         this.isAnswer = isAnswer;
         this.userID = userID;
+    }
+
+    public String getQuestionContent() {
+        return questionContent;
+    }
+
+    public void setQuestionContent(String questionContent) {
+        this.questionContent = questionContent;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

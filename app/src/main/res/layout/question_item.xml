@@ -32,6 +32,7 @@
             android:textSize="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
+            android:id="@+id/questionItem"
             android:text="Tên câu hỏi"/>
 
         <LinearLayout
@@ -72,6 +73,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/questionChk"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="25dp"/>
 
