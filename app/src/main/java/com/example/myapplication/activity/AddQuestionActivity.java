@@ -2,7 +2,9 @@ package com.example.myapplication.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +17,8 @@ import com.example.myapplication.R;
 
 public class AddQuestionActivity extends AppCompatActivity {
     ImageButton backBtn;
+    EditText questionTxt, answserTxt;
+    ImageButton submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ public class AddQuestionActivity extends AppCompatActivity {
         });
 
         backBtn = findViewById(R.id.backBtn);
+        questionTxt = findViewById(R.id.questionTxt);
+        answserTxt = findViewById(R.id.answserTxt);
+        submit = findViewById(R.id.submit);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +43,19 @@ public class AddQuestionActivity extends AppCompatActivity {
                     finish();
                 }
                 catch (Exception e) {
+                    Toast.makeText(AddQuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    
+                }
+                catch (Exception e) {
+                    Toast.makeText(AddQuestionActivity.this, "Thêm không thành công!", Toast.LENGTH_SHORT).show();
                     Toast.makeText(AddQuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }

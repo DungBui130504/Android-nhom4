@@ -36,6 +36,7 @@
                 android:text="Trở về"/>
 
             <ImageButton
+                android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/submit"
@@ -53,6 +54,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/questionTxt"
         android:layout_width="350dp"
         android:layout_height="230dp"
         android:layout_marginTop="30dp"
@@ -66,6 +68,7 @@ Nhập nội dung câu hỏi ở đây..."
         android:background="@drawable/add_question"/>
 
     <EditText
+        android:id="@+id/answserTxt"
         android:layout_width="350dp"
         android:layout_height="430dp"
         android:layout_marginTop="30dp"

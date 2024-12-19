@@ -41,6 +41,9 @@ public class QuestionActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent intent = getIntent();
+        int userId = intent.getIntExtra("userId", -2);
+
         questionBack = findViewById(R.id.questionBack);
         addBtn = findViewById(R.id.addBtn);
         questionList = findViewById(R.id.questionList);

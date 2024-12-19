@@ -195,6 +195,8 @@ public class SubjectActivity extends AppCompatActivity {
                                 int itemId = menuItem.getItemId();
                                 if (itemId == R.id.option_1) {
                                     Intent iQuestion = new Intent(SubjectActivity.this, QuestionActivity.class);
+                                    iQuestion.putExtra("userId", userId);
+                                    iQuestion.putExtra("subjectId", userId);
                                     startActivity(iQuestion);
                                     return true;
                                 } else if (itemId == R.id.option_2) {
