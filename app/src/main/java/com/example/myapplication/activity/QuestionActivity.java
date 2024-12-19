@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class QuestionActivity extends AppCompatActivity {
     ImageButton questionBack, addBtn;
     ListView questionList;
+    TextView numOfQuestion;
     ArrayList<QuestionAnswerObject> questions;
     QuestionAdapter questionAdapter;
     QuestionAnswerTable questionAnswerTable;
@@ -42,19 +44,29 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        int userId = intent.getIntExtra("userId", -2);
+//        int userId = intent.getIntExtra("userId", -2);
+//        int subjectId = intent.getIntExtra("subjectId", -2);
+        int userId = 1;
+        int subjectId = 1;
 
         questionBack = findViewById(R.id.questionBack);
         addBtn = findViewById(R.id.addBtn);
         questionList = findViewById(R.id.questionList);
+        numOfQuestion = findViewById(R.id.numOfQuestion);
+
         questions = new ArrayList<>();
 
         questionAnswerTable = new QuestionAnswerTable(this);
 
-        questions.addAll(questionAnswerTable.getQuestionAnswersOfUserID(1));
+        questions.addAll(questionAnswerTable.getQuestionAnswersOfUserID(1, 1));
 
         questionAdapter = new QuestionAdapter(QuestionActivity.this, questions, R.layout.question_item);
 
+        questionList.setAdapter(questionAdapter);
+
+        questionAdapter.notifyDataSetChanged();
+
+        numOfQuestion.setText(questionAnswerTable.getCountOfQuestions(subjectId, userId));
 
         questionBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +86,8 @@ public class QuestionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     Intent i = new Intent(QuestionActivity.this, AddQuestionActivity.class);
+                    i.putExtra("userId", userId);
+                    i.putExtra("subjectId", subjectId);
                     startActivity(i);
                 }
                 catch (Exception e) {
