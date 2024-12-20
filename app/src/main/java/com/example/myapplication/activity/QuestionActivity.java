@@ -31,6 +31,7 @@ public class QuestionActivity extends AppCompatActivity {
     ArrayList<QuestionAnswerObject> questions;
     QuestionAdapter questionAdapter;
     QuestionAnswerTable questionAnswerTable;
+    public static ArrayList<Integer> getCheckList = new ArrayList<>();
 
     Intent intent = getIntent();
     //        int userId = intent.getIntExtra("userId", -2);
@@ -97,12 +98,14 @@ public class QuestionActivity extends AppCompatActivity {
                 try {
                     Intent i2 = new Intent(QuestionActivity.this, AddQuestionActivity.class);
                     startActivityForResult(i2, 101);
+                    i2.putExtra("Check:" , "yes");
                 }
                 catch (Exception e) {
                     Toast.makeText(QuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
     }
 
@@ -116,8 +119,6 @@ public class QuestionActivity extends AppCompatActivity {
                 String answserTxt = data.getStringExtra("answserTxt");
                 String answerDate = data.getStringExtra("answerDate");
                 String questionDate = data.getStringExtra("questionDate");
-
-                Log.d("questionTxt:", questionTxt);
 
                 // Thêm câu hỏi mới vào database
                 questionAnswerTable.addNewQuestionAnswer(

@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.QuestionActivity;
 import com.example.myapplication.models.QuestionAnswer.QuestionAnswerObject;
 import com.example.myapplication.models.Subject.SubjectObject;
 
@@ -67,26 +70,26 @@ public class QuestionAdapter extends ArrayAdapter {
 //        checkBox.setChecked(myList.get(position).isChecked());
 
         // Xử lý sự kiện khi checkbox thay đổi trạng thái
-//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                try {
-//                    // Cập nhật trạng thái checkbox vào đối tượng dữ liệu
-//                    myList.get(position).setChecked(isChecked);
-//
-//                    // Cập nhật mảng checkedItems khi checkbox được chọn hoặc bỏ chọn
-//                    if (isChecked) {
-//                        // Nếu checkbox được check, thêm chỉ số vào mảng
-//                        SubjectActivity.getCheckList.add(position);
-//                    } else {
-//                        // Nếu checkbox uncheck, loại bỏ chỉ số khỏi mảng
-//                        SubjectActivity.getCheckList.remove(Integer.valueOf(position));
-//                    }
-//                } catch (Exception e) {
-//                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                try {
+                    // Cập nhật trạng thái checkbox vào đối tượng dữ liệu
+                    myList.get(position).setChecked(isChecked);
+
+                    // Cập nhật mảng checkedItems khi checkbox được chọn hoặc bỏ chọn
+                    if (isChecked) {
+                        // Nếu checkbox được check, thêm chỉ số vào mảng
+                        QuestionActivity.getCheckList.add(position);
+                    } else {
+                        // Nếu checkbox uncheck, loại bỏ chỉ số khỏi mảng
+                        QuestionActivity.getCheckList.remove(Integer.valueOf(position));
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return convertView;
     }

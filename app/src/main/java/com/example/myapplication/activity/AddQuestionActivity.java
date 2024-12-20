@@ -27,6 +27,12 @@ public class AddQuestionActivity extends AppCompatActivity {
     EditText questionTxt, answserTxt;
     ImageButton submit;
 
+    Intent intent = getIntent();
+    //        int userId = intent.getIntExtra("userId", -2);
+//        int subjectId = intent.getIntExtra("subjectId", -1);
+    int userId = 1;
+    int subjectId = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +43,6 @@ public class AddQuestionActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        Intent intent = getIntent();
-//        int userId = intent.getIntExtra("userId", -2);
-//        int subjectId = intent.getIntExtra("subjectId", -1);
-        int userId = 1;
-        int subjectId = 1;
 
         backBtn = findViewById(R.id.backBtn);
         questionTxt = findViewById(R.id.questionTxt);
@@ -66,6 +66,7 @@ public class AddQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     String questionDate = sdf.format(calendar.getTime());
