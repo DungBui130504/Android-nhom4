@@ -89,28 +89,28 @@ public class QuestionAnswerTable {
     }
 
     // Lấy tất cả câu hỏi và câu trả lời của một subjectID
-    public ArrayList<QuestionAnswerObject> getQuestionAnswersOfUserID(int subjectID) {
+    public ArrayList<QuestionAnswerObject> getQuestionAnswersOfUserID(int subjectID, int userId) {
         ArrayList<QuestionAnswerObject> questionAnswers = new ArrayList<>();
-        String query = "SELECT questionAnswerID FROM QuestionAnswer WHERE subjectID = ?";
+        String query = "SELECT questionAnswerID FROM QuestionAnswer WHERE subjectID = ? AND userId = ?";
         Cursor cursor = null;
 
         try {
-            cursor = this.db.rawQuery(query, new String[]{String.valueOf(subjectID)});
-            if (cursor == null || !cursor.moveToFirst()) {
-                return questionAnswers;
+            // Thực thi truy vấn với cả subjectID và userId
+            cursor = this.db.rawQuery(query, new String[]{String.valueOf(subjectID), String.valueOf(userId)});
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int questionAnswerIDIndex = cursor.getColumnIndex("questionAnswerID");
+                    if (questionAnswerIDIndex >= 0) {
+                        int questionAnswerID = cursor.getInt(questionAnswerIDIndex);
+                        // Thêm kết quả vào danh sách
+                        questionAnswers.add(this.getQuestionAnswerById(questionAnswerID));
+                    }
+                } while (cursor.moveToNext());
             }
-
-            while (cursor.moveToNext()) {
-                int questionAnswerIDIndex = cursor.getColumnIndex("questionAnswerID");
-                if (questionAnswerIDIndex >= 0) {
-                    int questionAnswerID = cursor.getInt(questionAnswerIDIndex);
-                    questionAnswers.add(this.getQuestionAnswerById(questionAnswerID));
-                }
-            }
-
         } catch (Exception e) {
-            Toast.makeText(this.context, "Có lỗi khi lấy câu hỏi và câu trả lời của userID: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "Có lỗi khi lấy câu hỏi và câu trả lời: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         } finally {
+            // Đóng con trỏ nếu không null
             if (cursor != null) {
                 cursor.close();
             }
@@ -118,6 +118,7 @@ public class QuestionAnswerTable {
 
         return questionAnswers;
     }
+
 
     // Cập nhật câu trả lời của một câu hỏi
     public boolean updateAnswer(int questionAnswerID, String answerContent, String answerUpdateDate, boolean isAnswer) {
@@ -145,4 +146,30 @@ public class QuestionAnswerTable {
             return false;
         }
     }
+
+    // Lấy số lượng câu hỏi của một subjectID và userID dưới dạng chuỗi
+    public String getCountOfQuestions(int subjectID, int userID) {
+        String countStr = "0";  // Mặc định là "0" nếu không có câu hỏi
+        String query = "SELECT COUNT(*) FROM QuestionAnswer WHERE subjectID = ? AND userID = ?";
+        Cursor cursor = null;
+
+        try {
+            // Thực thi truy vấn để đếm số lượng câu hỏi
+            cursor = this.db.rawQuery(query, new String[]{String.valueOf(subjectID), String.valueOf(userID)});
+            if (cursor != null && cursor.moveToFirst()) {
+                // Lấy kết quả đếm và chuyển thành chuỗi
+                countStr = String.valueOf(cursor.getInt(0)); // Cột đầu tiên chứa giá trị đếm
+            }
+        } catch (Exception e) {
+            Toast.makeText(this.context, "Có lỗi khi lấy số lượng câu hỏi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        } finally {
+            // Đóng con trỏ nếu không null
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return countStr;
+    }
+
 }

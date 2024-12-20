@@ -1,6 +1,7 @@
 package com.example.myapplication.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.models.User.UserObject;
 import com.example.myapplication.models.User.UserTable;
@@ -22,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     public EditText passwordTv;
     public CheckBox saveLoginCheckBox;
     public  UserTable userTable ;
+
+    public static int userID = -1;
 
     TextView signInIntent;
 
@@ -38,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         saveLoginCheckBox = findViewById(R.id.checkBoxSaveLogin);
         userTable = new UserTable(LoginActivity.this);
 
+        SharedPreferences mySharedPrefer = getSharedPreferences("mySharedPrefer", MODE_PRIVATE);
+        SharedPreferences.Editor editor = mySharedPrefer.edit();
+
         signInIntent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,17 +60,25 @@ public class LoginActivity extends AppCompatActivity {
                 String passWord = passwordTv.getText().toString();
                 boolean saveLogin = saveLoginCheckBox.isChecked();
                 UserObject userObject = userTable.getUserByUserName(userName);
-                if(userObject == null){
+
+                if(userObject.passWord == null){
                     Toast.makeText(LoginActivity.this,"Tài khoản không tồn tại!" , Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 if(!passWord.equals(userObject.passWord)){
                     Toast.makeText(LoginActivity.this,"Mật khẩu không chính xác!" , Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
-                startActivity(i);
-                Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                LoginActivity.userID = userObject.userID;
+                if(saveLogin){
+                    editor.putInt("userID",userObject.userID);
+                    editor.apply();
+                }
+                Intent loginIntent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                startActivity(loginIntent);
+
+
             }
         });
 

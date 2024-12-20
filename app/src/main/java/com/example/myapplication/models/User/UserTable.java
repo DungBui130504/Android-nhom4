@@ -24,29 +24,29 @@ public class UserTable {
             Log.e("UserTable", "Context is null, cannot open database.");
         }
     }
-    public boolean addNewUser(String userName, String password,String gmail ,String fullName, String phoneNumber){
+    public UserObject addNewUser(String userName, String password,String gmail ,String fullName, String phoneNumber){
         if(!gmail.contains("@gmail.com")){
             Toast.makeText(this.context,"Gmail không hợp lệ! " , Toast.LENGTH_SHORT).show();
-            return false ;
+            return null ;
         }
         try {
             Integer number = Integer.valueOf(phoneNumber);
         } catch (NumberFormatException e) {
             Toast.makeText(this.context,"Số điện thoại không hợp lệ! " , Toast.LENGTH_SHORT).show();
-            return false ;
+            return null ;
         }
         if(checkUserExisted(userName)){
             Toast.makeText(this.context,"Username đã tồn tại! " , Toast.LENGTH_SHORT).show();
-            return false ;
+            return null ;
         }
-        String addUserStatement = "insert into User (username, password,gmail,fullName ,phoneNumber) values (?,?,?,?,?) ";
-        try{
-            Cursor add = this.db.rawQuery(addUserStatement ,new String[]{userName,password,gmail,fullName,phoneNumber});
-            add.close();
-            return true;
+        String addUserStatement = "insert into User (userName, password,gmail,fullName ,phoneNumber) values (?,?,?,?,?) ";
+        try {
+            this.db.execSQL(addUserStatement, new Object[]{userName, password, gmail, fullName, phoneNumber});
+            return this.getUserByUserName(userName);
         } catch (Exception e) {
-            Toast.makeText(this.context,"Có lỗi khi thêm mới user : "+ e , Toast.LENGTH_SHORT).show();
-            return false;
+            Log.d("loi_dang_ky", "Có lỗi khi thêm mới user: " + e.toString());
+            Toast.makeText(this.context, "Có lỗi khi thêm mới user: " + e.toString(), Toast.LENGTH_SHORT).show();
+            return null;
         }
     }
 

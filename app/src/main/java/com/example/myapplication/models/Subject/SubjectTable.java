@@ -84,6 +84,22 @@ public class SubjectTable {
         }
     }
 
+    // Xóa một subject theo tên môn học
+    public boolean deleteSubjectByName(String subjectName, int userId) {
+        try {
+            // Câu lệnh SQL xóa môn học theo tên và userId
+            String querySubject = "DELETE FROM Subject WHERE subjectName = ? AND userId = ?";
+            this.db.execSQL(querySubject, new Object[]{subjectName, userId}); // Dùng Object[] thay vì String[]
+            return true;
+        } catch (Exception e) {
+            // Xử lý lỗi nếu có
+            Toast.makeText(this.context, "Có lỗi khi xóa môn học: " + e, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+
+
     // Lấy thông tin subject theo subjectID
     public SubjectObject getSubjectById(int subjectID) {
         SubjectObject subject = null;
@@ -121,13 +137,18 @@ public class SubjectTable {
     // Lấy tất cả các subject của một userID
     public ArrayList<SubjectObject> getSubjectsOfUserID(int userID) {
         ArrayList<SubjectObject> listSubject = new ArrayList<>();
-        String querySubject = "SELECT subjectID FROM Subject WHERE userID = ?";
+        String querySubject = "SELECT * FROM Subject WHERE userID = ?";
         Cursor cursor = null;
 
         try {
             cursor = this.db.rawQuery(querySubject, new String[]{String.valueOf(userID)});
             if (cursor == null || !cursor.moveToFirst()) {
                 return listSubject;
+            }
+            int subjectIDIndex0 = cursor.getColumnIndex("subjectID");
+            if (subjectIDIndex0 >= 0) {
+                int subjectID = cursor.getInt(subjectIDIndex0);
+                listSubject.add(this.getSubjectById(subjectID));
             }
             while (cursor.moveToNext()) {
                 int subjectIDIndex = cursor.getColumnIndex("subjectID");
@@ -146,4 +167,39 @@ public class SubjectTable {
         }
         return listSubject;
     }
+
+    // Sửa tên môn học theo subjectID
+    public boolean updateSubjectName(int subjectID, String newSubjectName, int userId) {
+        // Kiểm tra xem tên môn học mới có hợp lệ không (tên môn học không thể rỗng)
+        if (newSubjectName == null || newSubjectName.trim().isEmpty()) {
+            Toast.makeText(this.context, "Tên môn học không hợp lệ!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Cập nhật tên môn học trong bảng Subject
+        String updateSubjectStatement = "UPDATE Subject SET subjectName = ? WHERE subjectID = ?";
+        try {
+            this.db.execSQL(updateSubjectStatement, new Object[]{newSubjectName, subjectID});
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(this.context, "Có lỗi khi cập nhật tên môn học: " + e, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    // Xóa hết dữ liệu trong bảng Subject
+    public boolean deleteAllSubjects() {
+        try {
+            // Câu lệnh SQL để xóa tất cả các dòng trong bảng Subject
+            String querySubject = "DELETE FROM Subject";
+            this.db.execSQL(querySubject);
+            return true;
+        } catch (Exception e) {
+            // Xử lý lỗi nếu có
+            Toast.makeText(this.context, "Có lỗi khi xóa tất cả môn học: " + e, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+
 }

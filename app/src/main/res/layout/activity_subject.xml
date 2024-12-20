@@ -68,18 +68,22 @@
         android:layout_height="580dp"
         android:background="@drawable/subject_layout"
         android:orientation="vertical"
-        android:layout_marginTop="-65dp">
+        android:layout_marginTop="-65dp"
+        android:clickable="true"
+        android:padding="3dp">
 
         <ListView
             android:id="@+id/subjectList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_marginTop="25dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@null"
+            android:divider="@color/white"
             android:dividerHeight="35dp"
-            android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent"/>
+            android:listSelector="@color/white" />
 
     </LinearLayout>
 
@@ -122,7 +126,8 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:hint="Enter here"/>
+            android:hint="Enter here"
+            android:id="@+id/subjectName"/>
 
         <LinearLayout
             android:layout_width="200dp"
@@ -169,6 +174,7 @@
             android:src="@drawable/edit"
             android:layout_weight="1"
             android:padding="20dp"
+            android:id="@+id/editBtn"
             />
 
         <ImageButton
@@ -179,7 +185,8 @@
             android:src="@drawable/trash"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:padding="20dp"/>
+            android:padding="20dp"
+            android:id="@+id/delBtn"/>
 
     </LinearLayout>
 
