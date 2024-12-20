@@ -28,7 +28,7 @@ public class QuestionActivity extends AppCompatActivity {
     ListView questionList;
     TextView numOfQuestion;
     ArrayList<QuestionAnswerObject> questions;
-    public static QuestionAdapter questionAdapter;
+    QuestionAdapter questionAdapter;
     QuestionAnswerTable questionAnswerTable;
 
     Intent intent = getIntent();

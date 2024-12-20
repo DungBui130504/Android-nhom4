@@ -2,11 +2,13 @@ package com.example.myapplication.adpaters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,11 +19,15 @@ import com.example.myapplication.models.QuestionAnswer.QuestionAnswerObject;
 import com.example.myapplication.models.Subject.SubjectObject;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class QuestionAdapter extends ArrayAdapter {
     private final Activity context;
     private final int ID;
     private final ArrayList<QuestionAnswerObject> myList;
+
+
 
     public QuestionAdapter(Activity context, ArrayList<QuestionAnswerObject> myList, int ID) {
         super(context, ID, myList);
@@ -40,6 +46,20 @@ public class QuestionAdapter extends ArrayAdapter {
 
         // Khởi tạo các view trong convertView
         TextView subjectItem = convertView.findViewById(R.id.questionItem);
+
+        LinearLayout decor = convertView.findViewById(R.id.decor);
+
+        String[] colors = {"#0BD0F2", "#39BF67", "#F02222", "#5C2D98", "#9D9D9D"};
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(colors.length);
+
+        // Lấy phần tử màu ngẫu nhiên
+        String randomColor = colors[randomIndex];
+
+        // Đặt màu nền cho LinearLayout
+        decor.setBackgroundColor(Color.parseColor(randomColor));
+
         CheckBox checkBox = convertView.findViewById(R.id.questionChk);
 
         // Gán dữ liệu vào TextView
