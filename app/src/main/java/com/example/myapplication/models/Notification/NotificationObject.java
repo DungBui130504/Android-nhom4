@@ -26,4 +26,10 @@ public class NotificationObject {
         this.description = description;
         this.userID = userID;
     }
+    public int getNotiID() {
+        return notificationID;
+    }
+    public String getDescription() {
+        return description;
+    }
 }

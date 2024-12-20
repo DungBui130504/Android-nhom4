@@ -23,7 +23,7 @@ public class NotificationTable {
     }
 
     // Thêm một notification mới vào bảng Notification
-    public boolean addNewNotification( String notificationDateTime, String description, int userID) {
+    public boolean addNewNotification(String notificationDateTime, String description, int userID) {
 
         String addNotificationStatement = "INSERT INTO Notification ( notificationDateTime, description, userID) VALUES ( ?, ?, ?)";
         try {
@@ -119,6 +119,23 @@ public class NotificationTable {
             return true;
         } catch (Exception e) {
             Toast.makeText(this.context, "Có lỗi khi xóa thông báo: " + e, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+    public boolean updateDescription(int notificationID, String newDescription, int userId) {
+        // Kiểm tra xem tên môn học mới có hợp lệ không (tên môn học không thể rỗng)
+        if (newDescription == null || newDescription.trim().isEmpty()) {
+            Toast.makeText(this.context, "Tên thông báo không hợp lệ!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Cập nhật tên môn học trong bảng Subject
+        String updateNotificationStatement = "UPDATE Notification SET description = ? WHERE notificationID = ?";
+        try {
+            this.db.execSQL(updateNotificationStatement, new Object[]{newDescription, notificationID});
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(this.context, "Có lỗi khi cập nhật thông báo: " + e, Toast.LENGTH_SHORT).show();
             return false;
         }
     }

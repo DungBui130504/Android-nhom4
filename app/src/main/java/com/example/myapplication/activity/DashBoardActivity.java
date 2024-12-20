@@ -20,7 +20,7 @@ public class DashBoardActivity extends AppCompatActivity {
     LinearLayout subjectBtn, notificationBtn;
     ImageButton loginBackBtn;
 
-    @Override
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -28,6 +28,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
         subjectBtn = findViewById(R.id.subjectBtn);
         loginBackBtn = findViewById(R.id.loginBackBtn);
+        notificationBtn = findViewById(R.id.notificationBtn);
 
         Intent intent = getIntent();
         int userId = intent.getIntExtra("userId", -1);
@@ -42,6 +43,20 @@ public class DashBoardActivity extends AppCompatActivity {
                     Intent i = new Intent(DashBoardActivity.this, SubjectActivity.class);
                     i.putExtra("userId", userId);
                     startActivity(i);
+                }
+                catch (Exception e) {
+                    Toast.makeText(DashBoardActivity.this, "Không thể chuyển hướng", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent j = new Intent(DashBoardActivity.this, NotificationActivity.class);
+                    j.putExtra("userId", userId);
+                    startActivity(j);
                 }
                 catch (Exception e) {
                     Toast.makeText(DashBoardActivity.this, "Không thể chuyển hướng", Toast.LENGTH_SHORT).show();

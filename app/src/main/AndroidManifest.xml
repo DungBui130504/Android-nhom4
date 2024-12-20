@@ -46,6 +46,9 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
+            android:name=".activity.NotificationActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.SubjectActivity"
             android:exported="true">
 
