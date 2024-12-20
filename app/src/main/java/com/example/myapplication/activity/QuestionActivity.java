@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -87,6 +88,19 @@ public class QuestionActivity extends AppCompatActivity {
                 i.putExtra("userId", userId);
                 i.putExtra("subjectId", subjectId);
                 startActivityForResult(i, 100); // Sử dụng requestCode 100
+            }
+        });
+
+        questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    Intent i2 = new Intent(QuestionActivity.this, AddQuestionActivity.class);
+                    startActivityForResult(i2, 101);
+                }
+                catch (Exception e) {
+                    Toast.makeText(QuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

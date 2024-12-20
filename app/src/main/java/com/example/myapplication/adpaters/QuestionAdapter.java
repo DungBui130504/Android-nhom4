@@ -27,8 +27,6 @@ public class QuestionAdapter extends ArrayAdapter {
     private final int ID;
     private final ArrayList<QuestionAnswerObject> myList;
 
-
-
     public QuestionAdapter(Activity context, ArrayList<QuestionAnswerObject> myList, int ID) {
         super(context, ID, myList);
         this.context = context;
