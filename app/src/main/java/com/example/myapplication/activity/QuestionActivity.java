@@ -98,13 +98,17 @@ public class QuestionActivity extends AppCompatActivity {
                 try {
                     Intent i2 = new Intent(QuestionActivity.this, AddQuestionActivity.class);
                     startActivityForResult(i2, 101);
-                    i2.putExtra("Check:" , "yes");
+                    i2.putExtra("Check:" , 1);
+                    i2.putExtra("questionContext", questions.get(i).getQuestionContent());
+                    i2.putExtra("answerContext", questions.get(i).getAnswerContent());
                 }
                 catch (Exception e) {
                     Toast.makeText(QuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
 
 
     }
@@ -134,6 +138,13 @@ public class QuestionActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(QuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+        }
+
+        if (requestCode == 101 && resultCode == RESULT_OK) {
+            // Lấy dữ liệu từ Intent trả về
+            String questionTxt = data.getStringExtra("questionTxt");
+            String answserTxt = data.getStringExtra("answserTxt");
+            questionAnswerTable.
         }
     }
 }

@@ -55,6 +55,14 @@ public class QuestionAnswerObject {
         this.questionContent = questionContent;
     }
 
+    public String getAnswerContent() {
+        return answerContent;
+    }
+
+    public void setAnswerContent(String answerContent) {
+        this.answerContent = answerContent;
+    }
+
     public boolean isChecked() {
         return isChecked;
     }

@@ -66,29 +66,36 @@ public class AddQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                    String questionDate = sdf.format(calendar.getTime());
-                    String answerDate = "";
-
-                    if (questionTxt.getText().toString().isEmpty()) {
-                        Toast.makeText(AddQuestionActivity.this, "Bạn phải nhập nội dung câu hỏi!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (!answserTxt.getText().toString().isEmpty()) {
-                        answerDate = questionDate;
-                    }
-
-                    // Tạo Intent để gửi dữ liệu trở lại
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("questionTxt", questionTxt.getText().toString());
-                    resultIntent.putExtra("answserTxt", answserTxt.getText().toString());
-                    resultIntent.putExtra("questionDate", questionDate);
-                    resultIntent.putExtra("answerDate", answerDate);
+                    if (intent.getIntExtra("check", -1) == 1) {
+                        resultIntent.putExtra("questionTxt", questionTxt.getText().toString());
+                        resultIntent.putExtra("answserTxt", answserTxt.getText().toString());
+                        setResult(RESULT_OK, resultIntent); // Đặt kết quả
+                    }
+                    else {
+                        Calendar calendar = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        String questionDate = sdf.format(calendar.getTime());
+                        String answerDate = "";
 
-                    setResult(RESULT_OK, resultIntent); // Đặt kết quả
+                        if (questionTxt.getText().toString().isEmpty()) {
+                            Toast.makeText(AddQuestionActivity.this, "Bạn phải nhập nội dung câu hỏi!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (!answserTxt.getText().toString().isEmpty()) {
+                            answerDate = questionDate;
+                        }
+
+                        // Tạo Intent để gửi dữ liệu trở lại
+                        resultIntent.putExtra("questionTxt", questionTxt.getText().toString());
+                        resultIntent.putExtra("answserTxt", answserTxt.getText().toString());
+                        resultIntent.putExtra("questionDate", questionDate);
+                        resultIntent.putExtra("answerDate", answerDate);
+
+                        setResult(RESULT_OK, resultIntent); // Đặt kết quả
+                    }
+
                     finish();
                 } catch (Exception e) {
                     Toast.makeText(AddQuestionActivity.this, "Thêm không thành công!", Toast.LENGTH_SHORT).show();
