@@ -41,7 +41,7 @@ public class NotificationActivity extends AppCompatActivity {
     ArrayList<Integer> selectedList;
     ArrayList<NotificationObject> notiObject;
     int editNoti;
-    NotificationAdapter subjectAdapter;
+    NotificationAdapter notificationAdapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -71,9 +71,16 @@ public class NotificationActivity extends AppCompatActivity {
 
         notiObject = new ArrayList<>();
         notiObject.addAll(notificationTable.getNotificationsOfUserID(userId));
+
+        notificationAdapter = new NotificationAdapter(NotificationActivity.this, notiObject, R.layout.notification_item);
+
+        notiList.setAdapter(notificationAdapter);
+
+        notificationAdapter.notifyDataSetChanged();
+
         int hour = time.getHour();
         int minute = time.getMinute();
-        String notificationDateTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+        String notificationDateTime = String.format(Locale.getDefault(), "%02d : %02d", hour, minute);
         returnDashBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,12 +122,11 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     if (notiName.getText().toString().isEmpty()) {
-                        Toast.makeText(NotificationActivity.this, "Bạn phải nhập tên thông báo!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NotificationActivity.this, "Bạn phải nhập nội dung thông báo!", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (check == 0) {
                         notificationTable.addNewNotification(notificationDateTime,notiName.getText().toString(), userId);
-                        Log.d("onClick:", "add subject!");
                         Toast.makeText(NotificationActivity.this, "Thêm thông báo thành công!", Toast.LENGTH_SHORT).show();
                     }
                     if (check == 1) {
@@ -129,13 +135,12 @@ public class NotificationActivity extends AppCompatActivity {
                             return;
                         }
                         notificationTable.updateDescription(notiObject.get(editNoti).getNotiID(), notiName.getText().toString(), userId);
-                        Log.d("onClick:", "update subject!");
                         Toast.makeText(NotificationActivity.this, "Sửa thông báo thành công!", Toast.LENGTH_SHORT).show();
                     }
                     notiObject.clear();
                     notiObject.addAll(notificationTable.getNotificationsOfUserID(userId));
                     Log.d("add", notiObject.toString());
-                    subjectAdapter.notifyDataSetChanged();
+                    notificationAdapter.notifyDataSetChanged();
                     addNotiLayout.setVisibility(View.GONE);
                     addNotiLayout.setClickable(false);
                     notiName.setText("");
@@ -144,6 +149,7 @@ public class NotificationActivity extends AppCompatActivity {
                 catch (Exception e) {
                     if (check == 0) {
                         Toast.makeText(NotificationActivity.this, "Thêm môn học lỗi!", Toast.LENGTH_SHORT).show();
+                        Log.d("Nofi:", e.getMessage());
                     }
                     if (check == 1) {
                         Toast.makeText(NotificationActivity.this, "Sửa môn học lỗi!", Toast.LENGTH_SHORT).show();
