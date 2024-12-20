@@ -26,7 +26,6 @@ public class AddQuestionActivity extends AppCompatActivity {
     ImageButton backBtn;
     EditText questionTxt, answserTxt;
     ImageButton submit;
-    QuestionAnswerTable questionAnswerTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class AddQuestionActivity extends AppCompatActivity {
         answserTxt = findViewById(R.id.answserTxt);
         submit = findViewById(R.id.submit);
 
-        questionAnswerTable = new QuestionAnswerTable(this);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +61,12 @@ public class AddQuestionActivity extends AppCompatActivity {
                 }
             }
         });
-        
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     Calendar calendar = Calendar.getInstance();
-
-                    // Định dạng ngày tháng
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     String questionDate = sdf.format(calendar.getTime());
                     String answerDate = "";
@@ -84,16 +80,21 @@ public class AddQuestionActivity extends AppCompatActivity {
                         answerDate = questionDate;
                     }
 
-                    questionAnswerTable.addNewQuestionAnswer(questionTxt.getText().toString(), answserTxt.getText().toString(), answerDate, questionDate, userId, subjectId);
-                    Toast.makeText(AddQuestionActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
+                    // Tạo Intent để gửi dữ liệu trở lại
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("questionTxt", questionTxt.getText().toString());
+                    resultIntent.putExtra("answserTxt", answserTxt.getText().toString());
+                    resultIntent.putExtra("questionDate", questionDate);
+                    resultIntent.putExtra("answerDate", answerDate);
 
+                    setResult(RESULT_OK, resultIntent); // Đặt kết quả
                     finish();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(AddQuestionActivity.this, "Thêm không thành công!", Toast.LENGTH_SHORT).show();
                     Toast.makeText(AddQuestionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 }
